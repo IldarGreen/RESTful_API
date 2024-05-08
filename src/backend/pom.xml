@@ -1,58 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+	<!--<artifactId>spring-data-jpa-postgres</artifactId>-->
+	<!--<packaging>jar</packaging>-->
+	<!--<name>Spring Data JPA and PostgreSQL</name>-->
+	<!--<version>1.0</version>-->
+
+	<groupId>com.vanesabo</groupId>
+	<artifactId>backend</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0</version>
+	<name>backend</name>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>3.1.2</version>
+		<relativePath/> <!-- lookup parent from repository, not local -->
 	</parent>
-	<groupId>com.vanesabo</groupId>
-	<artifactId>backend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>backend</name>
-	<description>Demo project for Spring Boot</description>
+
 	<properties>
-		<java.version>22</java.version>
+		<java.version>17</java.version>
+		<testcontainers.version>1.19.0</testcontainers.version>
+		<downloadSources>true</downloadSources>
+		<downloadJavadocs>true</downloadJavadocs>
 	</properties>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jdbc</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-rest</artifactId>
-		</dependency>
+
+		<!-- Spring MVC -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+		<!-- Spring Data JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web-services</artifactId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
+		<!-- PostgreSQL database -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!-- Spring Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!--        &lt;!&ndash; Test with TestContainers &ndash;&gt;-->
+		<!--        <dependency>-->
+		<!--            <groupId>org.springframework.boot</groupId>-->
+		<!--            <artifactId>spring-boot-testcontainers</artifactId>-->
+		<!--            <scope>test</scope>-->
+		<!--        </dependency>-->
+
+		<!--        <dependency>-->
+		<!--            <groupId>org.testcontainers</groupId>-->
+		<!--            <artifactId>testcontainers</artifactId>-->
+		<!--            <scope>test</scope>-->
+		<!--        </dependency>-->
+
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+<!--		        <dependency>-->
+<!--		            <groupId>org.testcontainers</groupId>-->
+<!--		            <artifactId>junit-jupiter</artifactId>-->
+<!--		            <scope>test</scope>-->
+<!--		        </dependency>-->
+
+		<!--        &lt;!&ndash; Run Tests using RestAssured &ndash;&gt;-->
+		<!--        <dependency>-->
+		<!--            <groupId>io.rest-assured</groupId>-->
+		<!--            <artifactId>rest-assured</artifactId>-->
+		<!--            <scope>test</scope>-->
+		<!--        </dependency>-->
+
+		<!-- optional, for development -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
 		<!--		////////////////////////////////////////////////////////////////////////////////////////-->
 		<dependency>
 			<groupId>org.springdoc</groupId>
@@ -65,9 +109,141 @@
 			<artifactId>javax.persistence-api</artifactId>
 			<version>2.2</version>
 		</dependency>
-
 		<!--		////////////////////////////////////////////////////////////////////////////////////////-->
 
 	</dependencies>
 
+	<!--    <dependencyManagement>-->
+	<!--        <dependencies>-->
+	<!--            <dependency>-->
+	<!--                <groupId>org.testcontainers</groupId>-->
+	<!--                <artifactId>testcontainers-bom</artifactId>-->
+	<!--                <version>${testcontainers.version}</version>-->
+	<!--                <type>pom</type>-->
+	<!--                <scope>import</scope>-->
+	<!--            </dependency>-->
+	<!--        </dependencies>-->
+	<!--    </dependencyManagement>-->
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
+
+		<!--<?xml version="1.0" encoding="UTF-8"?>-->
+		<!--<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+		<!--	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">-->
+		<!--	<modelVersion>4.0.0</modelVersion>-->
+
+		<!--	<groupId>com.vanesabo</groupId>-->
+		<!--	<artifactId>backend</artifactId>-->
+		<!--	<packaging>jar</packaging>-->
+		<!--	<version>1.0</version>-->
+		<!--	<name>backend</name>-->
+
+		<!--	<parent>-->
+		<!--		<groupId>org.springframework.boot</groupId>-->
+		<!--		<artifactId>spring-boot-starter-parent</artifactId>-->
+		<!--		<version>3.1.2</version>-->
+		<!--		<relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
+		<!--	</parent>-->
+
+		<!--	<properties>-->
+		<!--		<java.version>17</java.version>-->
+		<!--		<downloadSources>true</downloadSources>-->
+		<!--	</properties>-->
+
+		<!--	<dependencies>-->
+		<!--		<dependency>-->
+		<!--			<groupId>org.springframework.boot</groupId>-->
+		<!--			<artifactId>spring-boot-starter-web</artifactId>-->
+		<!--		</dependency>-->
+		<!--		<dependency>-->
+		<!--			<groupId>org.springframework.boot</groupId>-->
+		<!--			<artifactId>spring-boot-starter-data-jpa</artifactId>-->
+		<!--		</dependency>-->
+		<!--		<dependency>-->
+		<!--			<groupId>org.postgresql</groupId>-->
+		<!--			<artifactId>postgresql</artifactId>-->
+		<!--			<scope>runtime</scope>-->
+		<!--		</dependency>-->
+		<!--&lt;!&ndash;		<dependency>&ndash;&gt;-->
+		<!--&lt;!&ndash;			<groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+		<!--&lt;!&ndash;			<artifactId>spring-boot-starter-test</artifactId>&ndash;&gt;-->
+		<!--&lt;!&ndash;			<scope>test</scope>&ndash;&gt;-->
+		<!--&lt;!&ndash;		</dependency>&ndash;&gt;-->
+		<!--		<dependency>-->
+		<!--			<groupId>org.testcontainers</groupId>-->
+		<!--			<artifactId>junit-jupiter</artifactId>-->
+		<!--			<scope>test</scope>-->
+		<!--		</dependency>-->
+
+		<!--&lt;!&ndash;		&lt;!&ndash; optional, for development &ndash;&gt;&ndash;&gt;-->
+		<!--&lt;!&ndash;		<dependency>&ndash;&gt;-->
+		<!--&lt;!&ndash;			<groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+		<!--&lt;!&ndash;			<artifactId>spring-boot-devtools</artifactId>&ndash;&gt;-->
+		<!--&lt;!&ndash;			<scope>runtime</scope>&ndash;&gt;-->
+		<!--&lt;!&ndash;			<optional>true</optional>&ndash;&gt;-->
+		<!--&lt;!&ndash;		</dependency>&ndash;&gt;-->
+
+		<!--&lt;!&ndash;		<dependency>&ndash;&gt;-->
+		<!--&lt;!&ndash;			<groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+		<!--&lt;!&ndash;			<artifactId>spring-boot-starter-data-rest</artifactId>&ndash;&gt;-->
+		<!--&lt;!&ndash;		</dependency>&ndash;&gt;-->
+
+		<!--&lt;!&ndash;		<dependency>&ndash;&gt;-->
+		<!--&lt;!&ndash;			<groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+		<!--&lt;!&ndash;			<artifactId>spring-boot-starter-web-services</artifactId>&ndash;&gt;-->
+		<!--&lt;!&ndash;		</dependency>&ndash;&gt;-->
+
+		<!--		&lt;!&ndash;		////////////////////////////////////////////////////////////////////////////////////////&ndash;&gt;-->
+		<!--		<dependency>-->
+		<!--			<groupId>org.springdoc</groupId>-->
+		<!--			<artifactId>springdoc-openapi-ui</artifactId>-->
+		<!--			<version>1.8.0</version>-->
+		<!--		</dependency>-->
+
+		<!--		<dependency>-->
+		<!--			<groupId>javax.persistence</groupId>-->
+		<!--			<artifactId>javax.persistence-api</artifactId>-->
+		<!--			<version>2.2</version>-->
+		<!--		</dependency>-->
+		<!--		&lt;!&ndash;		////////////////////////////////////////////////////////////////////////////////////////&ndash;&gt;-->
+
+		<!--	</dependencies>-->
+
+		<!--	<build>-->
+		<!--		<plugins>-->
+		<!--			<plugin>-->
+		<!--				<groupId>org.springframework.boot</groupId>-->
+		<!--				<artifactId>spring-boot-maven-plugin</artifactId>-->
+		<!--			</plugin>-->
+
+		<!--			<plugin>-->
+		<!--				<groupId>org.apache.maven.plugins</groupId>-->
+		<!--				<artifactId>maven-compiler-plugin</artifactId>-->
+		<!--				<version>3.11.0</version>-->
+		<!--				<configuration>-->
+		<!--					<source>${java.version}</source>-->
+		<!--					<target>${java.version}</target>-->
+		<!--				</configuration>-->
+		<!--			</plugin>-->
+		<!--		</plugins>-->
+		<!--	</build>-->
+
+		<!--</project>-->
