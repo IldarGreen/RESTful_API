@@ -5,24 +5,26 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+
 @Entity
-@Table(name = "address")
+//@Table(name = "address")
 public class AddressEntity {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "id", nullable = false)
     private UUID id;
-    @Column
+//    @Column
     private String country;
-    @Column
+//    @Column
     private String city;
-    @Column
+//    @Column
     private String street;
 
-    @OneToMany(mappedBy = "address_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ClientEntity> clients;
-
-    @OneToMany(mappedBy = "address_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<SupplierEntity> suppliers;
+//    @OneToMany(mappedBy = "address_id", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<ClientEntity> clients;
+//
+//    @OneToMany(mappedBy = "address_id", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<SupplierEntity> suppliers;
 
     public AddressEntity() {
     }
@@ -54,5 +56,37 @@ public class AddressEntity {
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
                 '}';
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 }
