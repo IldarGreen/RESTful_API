@@ -1,29 +1,23 @@
-package com.vanesabo.backend.entities;
+package com.vanesabo.backend.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
-
 
 @Entity
-//@Table(name = "address")
+@Table(name = "address")
 public class AddressEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id", nullable = false)
-    private UUID id;
-//    @Column
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String country;
-//    @Column
     private String city;
-//    @Column
     private String street;
 
-//    @OneToMany(mappedBy = "address_id", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<ClientEntity> clients;
 //
-//    @OneToMany(mappedBy = "address_id", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 //    private List<SupplierEntity> suppliers;
 
     public AddressEntity() {
@@ -33,6 +27,16 @@ public class AddressEntity {
         this.country = country;
         this.city = city;
         this.street = street;
+    }
+
+    @Override
+    public String toString() {
+        return "AddressEntity{" +
+                "id=" + id +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                '}';
     }
 
     @Override
@@ -48,21 +52,11 @@ public class AddressEntity {
         return Objects.hash(id, country, city, street);
     }
 
-    @Override
-    public String toString() {
-        return "AddressEntity{" +
-                "id=" + id +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                '}';
-    }
-
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -89,4 +83,20 @@ public class AddressEntity {
     public void setStreet(String street) {
         this.street = street;
     }
+
+//    public List<ClientEntity> getClients() {
+//        return clients;
+//    }
+//
+//    public void setClients(List<ClientEntity> clients) {
+//        this.clients = clients;
+//    }
+//
+//    public List<SupplierEntity> getSuppliers() {
+//        return suppliers;
+//    }
+//
+//    public void setSuppliers(List<SupplierEntity> suppliers) {
+//        this.suppliers = suppliers;
+//    }
 }
