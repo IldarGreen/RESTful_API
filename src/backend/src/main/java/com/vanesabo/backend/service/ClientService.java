@@ -16,6 +16,8 @@ public class ClientService {
 
     @Autowired
     private ClientRepository clientRepository;
+    @Autowired
+    private AddressService addressService;
 
     public ClientEntity save(ClientEntity clientEntity) {
         return clientRepository.save(clientEntity);
@@ -24,21 +26,6 @@ public class ClientService {
     public void deleteById(Long id) {
         clientRepository.deleteById(id);
     }
-
-//    public void deleteById(Long id) {
-//        ClientEntity clientEntity = clientRepository.findById(id)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-//
-//        clientRepository.deleteById(clientEntity.getId());
-//    }
-
-
-//    public void deleteById(UUID id) {
-//        ClientEntity clientEntity = clientRepository.findById(id)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-//                        "Client not found with id: " + id));
-//        clientRepository.deleteById(clientEntity.getId());
-//    }
 
 
     public List<ClientEntity> getClientsByNameAndSurname(String name, String surname) {

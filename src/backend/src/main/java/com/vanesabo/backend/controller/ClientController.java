@@ -30,12 +30,15 @@ public class ClientController {
     @GetMapping("/{id}/delete")
     public void deleteById(@PathVariable("id") Long id) {
         clientService.deleteById(id);
+//        return "redirect:/client/2";
     }
 
-    @GetMapping("/search")
+    @GetMapping("/search{name}{surname}")
     public List<ClientEntity> getClientsByNameAndSurname(@PathVariable String name, @PathVariable String surname) {
+//        System.out.println(name + " " + surname + "--------------------");
         return clientService.getClientsByNameAndSurname(name, surname);
     }
+//    http://localhost:8080/clients/search?name=%D0%9A%D1%8D%D0%BB%D0%B5%D0%BD&surname=%D0%90%D0%BC%D0%BD%D0%B5%D0%BB%D0%BB
 
     ////////////////////////
     @GetMapping("/{id}")
