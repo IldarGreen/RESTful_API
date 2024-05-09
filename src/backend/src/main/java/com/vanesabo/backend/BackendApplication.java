@@ -60,8 +60,6 @@ public class BackendApplication {
 
             addressRepository.saveAll(List.of(a1, a2));
 
-//            ClientEntity cl1 = new ClientEntity("Кэлен", "Амнелл", LocalDate.of(2000, 5, 20),
-//                                            "F", LocalDate.of(2014, 6, 18), 1);
             ClientEntity cl1 = new ClientEntity("Кэлен", "Амнелл", "2000-04-05",
                                                     "F", "2014-05-06", a1);
             ClientEntity cl2 = new ClientEntity("Йон", "Тихий", "1940-01-02",

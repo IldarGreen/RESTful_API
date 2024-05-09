@@ -25,8 +25,10 @@ public class ClientController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT) // 204
-    @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) {
+//    @DeleteMapping("/{id}")
+//    @DeleteMapping("/delete/{id}")
+    @GetMapping("/{id}/delete")
+    public void deleteById(@PathVariable("id") Long id) {
         clientService.deleteById(id);
     }
 
@@ -37,9 +39,11 @@ public class ClientController {
 
     ////////////////////////
     @GetMapping("/{id}")
-    public Optional<ClientEntity> findById(@PathVariable Long id) {
+    public Optional<ClientEntity> findById(@PathVariable("id") Long id) {
         return clientService.findById(id);
     }
+
+
 
 };
 
