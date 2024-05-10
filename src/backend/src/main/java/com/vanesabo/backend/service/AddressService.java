@@ -2,6 +2,7 @@ package com.vanesabo.backend.service;
 
 import com.vanesabo.backend.model.AddressEntity;
 import com.vanesabo.backend.repository.AddressRepository;
+import com.vanesabo.backend.response.AddressResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -31,20 +32,15 @@ public class AddressService {
                 "Address not found with id: " + id));
     }
 
-//    public Book save(Book book) {
-//        return bookRepository.save(book);
-//    }
-//
-//    public void deleteById(Long id) {
-//        bookRepository.deleteById(id);
-//    }
-//
-//    public List<Book> findByTitle(String title) {
-//        return bookRepository.findByTitle(title);
-//    }
-//
-//    public List<Book> findByPublishedDateAfter(LocalDate date) {
-//        return bookRepository.findByPublishedDateAfter(date);
-//    }
+    public List<AddressResponse> getAllAddreses() {
+        List<AddressEntity> addressEntities = addressRepository.findAll();
+
+        return addressEntities.stream().map(address -> new AddressResponse(
+                        address.getId(),
+                        address.getCountry(),
+                        address.getCity(),
+                        address.getStreet()))
+                .toList();
+    }
 
 }

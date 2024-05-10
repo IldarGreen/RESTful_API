@@ -77,15 +77,15 @@ public class ClientService {
                 client.getAddress().getId());
     }
 
-    public Optional<ClientResponse> updateClientAddress(Long id, AddressEntity newAddress) {
+    public Optional<ClientResponse> updateClientAddress(Long id, Long newAddress) {
         return clientRepository.findById(id).map(client -> {
-            AddressEntity address = addressService.getAddressById(newAddress.getId())
+            AddressEntity address = addressService.getAddressById(newAddress)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                             "Address with id: " + newAddress + " not found"));
 
-//            if (address == null) {
-//                System.out.println("!!!!!!!!!!!!!!!!!--------!!!!!!!!!!!!!!!");
-//            }
+            if (address == null) {
+                System.out.println("!!!!!!!!!!!!!!!!!--------!!!!!!!!!!!!!!!");
+            }
 
 
 
