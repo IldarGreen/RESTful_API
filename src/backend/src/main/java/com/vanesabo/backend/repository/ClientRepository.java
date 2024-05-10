@@ -10,6 +10,10 @@ import java.util.List;
 public interface ClientRepository extends JpaRepository<ClientEntity, Long> {
 
 //    @Query("SELECT c FROM ClientEntity c WHERE c.client_name = :name AND c.client_surname = :surnam")
-    @Query("SELECT '*' FROM ClientEntity")
-    List<ClientEntity> getClientsByNameAndSurname(@Param("name") String clientName, @Param("surname") String clientSurname);
+
+//    @Query("SELECT '*' FROM ClientEntity")
+//    List<ClientEntity> getClientsByNameAndSurname(@Param("name") String clientName, @Param("surname") String clientSurname);
+
+    List<ClientEntity> findByClientNameAndClientSurname(String clientName,
+                                                        String clientSurname);
 }

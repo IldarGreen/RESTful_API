@@ -1,6 +1,5 @@
 package com.vanesabo.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,11 +9,11 @@ public class ClientEntity {
 //    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String client_name;
-    private String client_surname;
+    private String clientName;
+    private String clientSurname;
     private String birthday;
     private String gender;
-    private String registration_date;
+    private String registrationDate;
 
     @ManyToOne
     @JoinColumn(name = "address_id", referencedColumnName = "id")
@@ -24,11 +23,11 @@ public class ClientEntity {
     }
 
     public ClientEntity(String client_name, String client_surname, String birthday, String gender, String registration_date, AddressEntity address) {
-        this.client_name = client_name;
-        this.client_surname = client_surname;
+        this.clientName = client_name;
+        this.clientSurname = client_surname;
         this.birthday = birthday;
         this.gender = gender;
-        this.registration_date = registration_date;
+        this.registrationDate = registration_date;
         this.address = address;
     }
 
@@ -36,11 +35,11 @@ public class ClientEntity {
     public String toString() {
         return "ClientEntity{" +
                 "id=" + id +
-                ", client_name='" + client_name + '\'' +
-                ", client_surname='" + client_surname + '\'' +
+                ", client_name='" + clientName + '\'' +
+                ", client_surname='" + clientSurname + '\'' +
                 ", birthday='" + birthday + '\'' +
                 ", gender='" + gender + '\'' +
-                ", registration_date='" + registration_date + '\'' +
+                ", registration_date='" + registrationDate + '\'' +
                 '}';
     }
 
@@ -52,20 +51,20 @@ public class ClientEntity {
         this.id = id;
     }
 
-    public String getClient_name() {
-        return client_name;
+    public String getClientName() {
+        return clientName;
     }
 
-    public void setClient_name(String client_name) {
-        this.client_name = client_name;
+    public void setClientName(String client_name) {
+        this.clientName = client_name;
     }
 
-    public String getClient_surname() {
-        return client_surname;
+    public String getClientSurname() {
+        return clientSurname;
     }
 
-    public void setClient_surname(String client_surname) {
-        this.client_surname = client_surname;
+    public void setClientSurname(String client_surname) {
+        this.clientSurname = client_surname;
     }
 
     public String getBirthday() {
@@ -84,12 +83,12 @@ public class ClientEntity {
         this.gender = gender;
     }
 
-    public String getRegistration_date() {
-        return registration_date;
+    public String getRegistrationDate() {
+        return registrationDate;
     }
 
-    public void setRegistration_date(String registration_date) {
-        this.registration_date = registration_date;
+    public void setRegistrationDate(String registration_date) {
+        this.registrationDate = registration_date;
     }
 
     public AddressEntity getAddress() {
