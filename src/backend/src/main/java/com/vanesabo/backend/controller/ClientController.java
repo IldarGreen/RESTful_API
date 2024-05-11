@@ -2,7 +2,9 @@ package com.vanesabo.backend.controller;
 
 import com.vanesabo.backend.model.Book;
 import com.vanesabo.backend.model.ClientEntity;
+import com.vanesabo.backend.request.AddressRequest;
 import com.vanesabo.backend.request.ClientRequest;
+import com.vanesabo.backend.response.AddressResponse;
 import com.vanesabo.backend.response.ClientResponse;
 import com.vanesabo.backend.service.ClientService;
 import jakarta.validation.Valid;
@@ -50,14 +52,27 @@ public class ClientController {
 
     //
 
+//    @PatchMapping("/{id}/address")
+//    public ResponseEntity<ClientResponse> updateClientAddress(
+//            @PathVariable Long id,
+//            @RequestBody Long newAddress) {
+//        return clientService.updateClientAddress(id, newAddress)
+//                .map(ResponseEntity::ok)
+//                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//    }
     @PatchMapping("/{id}/address")
     public ResponseEntity<ClientResponse> updateClientAddress(
+//    public void updateClientAddress(
+//    public void updateClientAddress(
             @PathVariable Long id,
-            @RequestBody Long newAddress) {
-        return clientService.updateClientAddress(id, newAddress)
+            @RequestBody AddressRequest request) {
+        return clientService.updateClientAddress(id, request)
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//        clientService.updateClientAddress(id, request);
     }
+
+
 
     ///////////////////////////////////////////////////////////////////
     ////////////////////////по заданию не нужна

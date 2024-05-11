@@ -1,6 +1,7 @@
 package com.vanesabo.backend.controller;
 
 import com.vanesabo.backend.model.AddressEntity;
+import com.vanesabo.backend.request.AddressRequest;
 import com.vanesabo.backend.response.AddressResponse;
 import com.vanesabo.backend.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,12 @@ public class AddressController {
 //    public List<AddressEntity> findAll() {
 //        return addressService.findAll();
 //    }
+
+    /////////////////////////////?????????
+    @PostMapping
+    public ResponseEntity<AddressResponse> addClient(@RequestBody AddressRequest request) {
+        return new ResponseEntity<>(addressService.addAddress(request), HttpStatus.OK);
+    }
 
 
     @GetMapping()

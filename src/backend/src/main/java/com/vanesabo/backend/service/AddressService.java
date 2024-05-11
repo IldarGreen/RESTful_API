@@ -2,6 +2,7 @@ package com.vanesabo.backend.service;
 
 import com.vanesabo.backend.model.AddressEntity;
 import com.vanesabo.backend.repository.AddressRepository;
+import com.vanesabo.backend.request.AddressRequest;
 import com.vanesabo.backend.response.AddressResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,10 @@ public class AddressService {
         return addressRepository.findById(id);
     }
 
+    public Optional<AddressEntity> getAddressByAllField(Long id) {
+        return addressRepository.findById(id);
+    }
+
     public AddressEntity getAddressEntityById(Long id) {
         return addressRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                 "Address not found with id: " + id));
@@ -41,6 +46,23 @@ public class AddressService {
                         address.getCity(),
                         address.getStreet()))
                 .toList();
+    }
+
+
+    /////////////////////????????????
+    public AddressResponse addAddress(AddressRequest address) {
+        AddressEntity addressEntity = new AddressEntity(
+                address.country(),
+                address.city(),
+                address.street()
+                );
+        addressRepository.save(addressEntity);
+
+        return new AddressResponse(
+                addressEntity.getId(),
+                addressEntity.getCountry(),
+                addressEntity.getCity(),
+                addressEntity.getStreet());
     }
 
 }
