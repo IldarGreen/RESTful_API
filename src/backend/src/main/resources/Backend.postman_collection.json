@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "8459eb50-6c3f-4172-b2fb-04e2151b26b9",
+		"name": "Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32960552"
+	},
+	"item": [
+		{
+			"name": "Product",
+			"item": []
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "clients/search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Кэлен",
+									"type": "text"
+								},
+								{
+									"key": "surname",
+									"value": "Амнелл",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:8080/clients/search"
+					},
+					"response": []
+				},
+				{
+					"name": "add_clients",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    // \"clientName\": ,\n    \"clientSurname\": \"\",\n    \"birthday\": \"1000-04-05\",\n    \"gender\": \"D\",\n    \"registrationDate\": \"3000-05-06\",\n    \"addressId\": 1\n}\n\n// {\n//     \"clientName\": \"Кэлен222\",\n//     \"clientSurname\": \"Амнелл222\",\n//     \"birthday\": \"1000-04-05\",\n//     \"gender\": \"F\",\n//     \"registrationDate\": \"2014-05-06\",\n//     \"addressId\": 1\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/clients"
+					},
+					"response": []
+				},
+				{
+					"name": "clients/1/address",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    // \"id\": 3, \n    \"country\": \"Тайланд\",\n    \"city\": \"Бангкок\",\n    \"street\": \"улица\"\n}\n\n// {\n//     // \"id\": 1,\n//     \"country\": \"Франция\",\n//     \"city\": \"Леон\",\n//     \"street\": \"Вьен\"\n// }\n\n// {\n//     \"id\": 2,\n//     \"country\": \"Россия\",\n//     \"city\": \"Сакт-Петербург\",\n//     \"street\": \"Лунная\"\n// }\n\n// {\n//     \"country\": null,\n//     \"city\": \"Бангкок\",\n//     \"street\": \"улица\"\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/clients/1/address"
+					},
+					"response": []
+				},
+				{
+					"name": "clients/getAllClientsPaginated",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "offset",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:8080/clients"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

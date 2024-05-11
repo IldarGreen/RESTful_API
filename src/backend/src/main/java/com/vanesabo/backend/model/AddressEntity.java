@@ -14,11 +14,11 @@ public class AddressEntity {
     private String city;
     private String street;
 
-//    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<ClientEntity> clients;
-//
-//    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-//    private List<SupplierEntity> suppliers;
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ClientEntity> clients;
+
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<SupplierEntity> suppliers;
 
     public AddressEntity() {
     }
@@ -84,19 +84,20 @@ public class AddressEntity {
         this.street = street;
     }
 
-//    public List<ClientEntity> getClients() {
-//        return clients;
-//    }
-//
-//    public void setClients(List<ClientEntity> clients) {
-//        this.clients = clients;
-//    }
-//
-//    public List<SupplierEntity> getSuppliers() {
-//        return suppliers;
-//    }
-//
-//    public void setSuppliers(List<SupplierEntity> suppliers) {
-//        this.suppliers = suppliers;
-//    }
+
+    public List<ClientEntity> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<ClientEntity> clients) {
+        this.clients = clients;
+    }
+
+    public List<SupplierEntity> getSuppliers() {
+        return suppliers;
+    }
+
+    public void setSuppliers(List<SupplierEntity> suppliers) {
+        this.suppliers = suppliers;
+    }
 }

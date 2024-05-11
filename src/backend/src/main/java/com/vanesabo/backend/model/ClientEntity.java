@@ -1,6 +1,7 @@
 package com.vanesabo.backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "client")
@@ -9,6 +10,7 @@ public class ClientEntity {
 //    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+//    @NotBlank///////////////////////////////////////////////////////
     private String clientName;
     private String clientSurname;
     private String birthday;

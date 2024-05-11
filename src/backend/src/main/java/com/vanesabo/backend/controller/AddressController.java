@@ -18,17 +18,10 @@ public class AddressController {
     @Autowired
     private AddressService addressService;
 
-//    @GetMapping
-//    public List<AddressEntity> findAll() {
-//        return addressService.findAll();
-//    }
-
-    /////////////////////////////?????????
     @PostMapping
     public ResponseEntity<AddressResponse> addClient(@RequestBody AddressRequest request) {
         return new ResponseEntity<>(addressService.addAddress(request), HttpStatus.OK);
     }
-
 
     @GetMapping()
     public ResponseEntity<List<AddressResponse>> getAllAddreses() {
