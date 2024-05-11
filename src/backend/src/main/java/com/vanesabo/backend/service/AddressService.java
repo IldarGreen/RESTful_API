@@ -28,13 +28,14 @@ public class AddressService {
         return addressRepository.findById(id);
     }
 
-    public Optional<AddressEntity> getAddressByAllField(Long id) {
-        return addressRepository.findById(id);
+    public Optional<AddressEntity> getAddressByAllField(String country, String city, String street) {
+        return addressRepository.getAddressByAllField(country, city, street);
     }
 
-    public AddressEntity getAddressEntityById(Long id) {
-        return addressRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                "Address not found with id: " + id));
+    public Optional<AddressEntity> getAddressEntityById(Long id) {
+        return addressRepository.findById(id);
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+//                "Address not found with id: " + id));
     }
 
     public List<AddressResponse> getAllAddreses() {

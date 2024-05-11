@@ -13,7 +13,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class ClientService {
@@ -33,11 +32,6 @@ public class ClientService {
                         "Client with id: " + id + "not found"));
         clientRepository.deleteById(clientEntity.getId());
     }
-
-
-//    public List<ClientEntity> getClientsByNameAndSurname(String name, String surname) {
-//        return clientRepository.getClientsByNameAndSurname(name, surname);
-//    }
 
     public List<ClientResponse> getClientsByNameAndSurname(String name, String surname) {
         List<ClientEntity> clientEntity = clientRepository.findByClientNameAndClientSurname(name, surname);
@@ -59,7 +53,6 @@ public class ClientService {
                         "Address not found with id: " + request.addressId()));
 
         ClientEntity client = new ClientEntity(
-//                UUID.randomUUID(),
                 request.clientName(),
                 request.clientSurname(),
                 request.birthday(),
@@ -77,26 +70,19 @@ public class ClientService {
                 client.getRegistrationDate(),
                 client.getAddress().getId());
     }
-
     public Optional<ClientResponse> updateClientAddress(Long id, AddressRequest request) {
-//    public void updateClientAddress(Long id, AddressRequest request) {
-        AddressEntity addressEntity = addressService.getAddressById(request.id())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Address not found with id: " + request.id()));
+        Optional<AddressEntity> addressEntity = addressService.getAddressByAllField(request.country(), request.city(), request.street());
 
-        if (addressEntity == null) {
-            System.out.println("!!!!!!!!!!!!!!!!!---addressEntity == null---!!!!!!!!!!!!!!!");
-        } else {
-            System.out.println("!!!!!!!!!!!!!!!!!---addressEntity != null---!!!!!!!!!!!!!!!");
+        if (addressEntity.isEmpty()) {
+            Long idd = addressService.addAddress(request).id();
+            addressEntity = addressService.getAddressEntityById(idd);
         }
 
+        Optional<AddressEntity> finalAddressEntity = addressEntity;
         return clientRepository.findById(id).map(client -> {
-//            AddressEntity address = addressService.getAddressById(request.id())
-//                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-//                            "Address with id: " + request + " not found"));
-
-
-            client.setAddress(addressEntity);
+            if (finalAddressEntity.isPresent()) {
+                client.setAddress(finalAddressEntity.get());
+            }
             client = clientRepository.save(client);
             return new ClientResponse(
                     client.getId(),
@@ -108,46 +94,6 @@ public class ClientService {
                     client.getAddress().getId());
         });
     }
-//    public Optional<ClientResponse> updateClientAddress(Long id, Long newAddress) {
-//        return clientRepository.findById(id).map(client -> {
-//            AddressEntity address = addressService.getAddressById(newAddress)
-//                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-//                            "Address with id: " + newAddress + " not found"));
-//
-//            if (address == null) {
-//                System.out.println("!!!!!!!!!!!!!!!!!--------!!!!!!!!!!!!!!!");
-//            }
-//
-//            client.setAddress(address);
-//            client = clientRepository.save(client);
-//            return new ClientResponse(
-//                    client.getId(),
-//                    client.getClientName(),
-//                    client.getClientSurname(),
-//                    client.getBirthday(),
-//                    client.getGender(),
-//                    client.getRegistrationDate(),
-//                    client.getAddress().getId());
-//        });
-//    }
-
-//    public Optional<ClientResponse> updateClientAddress(Long id, Long newAddress) {
-//        return clientRepository.findById(id).map(client -> {
-//            AddressEntity address = addressService.getAddressById(newAddress)
-//                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-//                            "Address with id: " + newAddress + " not found"));
-//            client.setAddress(address);
-//            client = clientRepository.save(client);
-//            return new ClientResponse(
-//                    client.getId(),
-//                    client.getClientName(),
-//                    client.getClientSurname(),
-//                    client.getBirthday(),
-//                    client.getGender(),
-//                    client.getRegistrationDate(),
-//                    client.getAddress().getId());
-//        });
-//    }
 
     /////////////////////////////////по заданию не нужно
     public Optional<ClientEntity> findById(Long id) {
