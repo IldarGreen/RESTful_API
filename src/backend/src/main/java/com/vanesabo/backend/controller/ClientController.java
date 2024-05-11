@@ -48,7 +48,13 @@ public class ClientController {
 
     //4. Получение всех клиентов (В данном запросе необходимо предусмотреть опциональные параметры
     // пагинации в строке запроса: limit и offset). В случае отсутствия эти параметров возвращать весь список.
-
+    @GetMapping
+    ResponseEntity<List<ClientResponse>> getAllClientsPaginated(
+            @RequestParam(required = false) Integer limit,
+            @RequestParam(required = false) Integer offset) {
+        List<ClientResponse> clients = clientService.getAllClientsPaginated(limit, offset);
+        return ResponseEntity.ok(clients);
+    }
 
     //
 
@@ -73,40 +79,10 @@ public class ClientController {
     }
 
 
-
-    ///////////////////////////////////////////////////////////////////
-    ////////////////////////по заданию не нужна
     @GetMapping("/{id}")
 //    public Optional<ClientEntity> findById(@PathVariable("id") @Valid Long id) {
     public Optional<ClientEntity> findById(@Valid @PathVariable("id") Long id) {
         return clientService.findById(id);
     }
 
-
-//    ///////////На вход подается JSON!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//    @ResponseStatus(HttpStatus.CREATED) // 201
-//    @PostMapping
-//    public ClientEntity createClient(@RequestBody ClientEntity clientEntity) {
-//        return clientService.save(clientEntity);
-//    }
-
-//    @ResponseStatus(HttpStatus.NO_CONTENT) // 204
-////    @DeleteMapping("/{id}")
-////    @DeleteMapping("/delete/{id}")
-//    @GetMapping("/{id}/delete")
-//    public void deleteById(@PathVariable("id") Long id) {
-//        clientService.deleteById(id);
-////        return "redirect:/client/2";
-//    }
-
-
-
-//    @GetMapping("/search{name}{surname}")
-//    public List<ClientEntity> getClientsByNameAndSurname(@PathVariable String name, @PathVariable String surname) {
-////        System.out.println(name + " " + surname + "--------------------");
-//        return clientService.getClientsByNameAndSurname(name, surname);
-//    }
-//    http://localhost:8080/clients/search?name=%D0%9A%D1%8D%D0%BB%D0%B5%D0%BD&surname=%D0%90%D0%BC%D0%BD%D0%B5%D0%BB%D0%BB
-
-};
-
+}

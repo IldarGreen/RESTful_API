@@ -64,8 +64,16 @@ public class BackendApplication {
                                                     "F", "2014-05-06", a1);
             ClientEntity cl2 = new ClientEntity("Йон", "Тихий", "1940-01-02",
                                                     "M", "2024-05-07", a2);
+            ClientEntity cl3 = new ClientEntity("Йон2", "Тихий", "1940-01-02",
+                    "M", "2024-05-07", a2);
+            ClientEntity cl4 = new ClientEntity("Йо3", "Тихий", "1940-01-02",
+                    "M", "2024-05-07", a2);
+            ClientEntity cl5 = new ClientEntity("Йон4", "Тихий", "1940-01-02",
+                    "M", "2024-05-07", a2);
+            ClientEntity cl6 = new ClientEntity("Йон5", "Тихий", "1940-01-02",
+                    "M", "2024-05-07", a2);
 
-            clientRepository.saveAll(List.of(cl1, cl2));
+            clientRepository.saveAll(List.of(cl1, cl2, cl3, cl4, cl5, cl6));
 
         };
     }
