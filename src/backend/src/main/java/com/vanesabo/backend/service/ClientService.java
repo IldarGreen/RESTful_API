@@ -70,20 +70,21 @@ public class ClientService {
                 .toList();
     }
 
-    public Optional<ClientResponse> updateClientAddress(Long id, AddressRequest request) {
+    public Optional<ClientResponse> updateClientAddress(Long clientId, AddressRequest request) {
         Optional<AddressEntity> addressEntity = addressService.getAddressByAllField(request.country(), request.city(), request.street());
 
         if (addressEntity.isEmpty()) {
-            Long idd = addressService.addAddress(request).id();
-            addressEntity = addressService.getAddressEntityById(idd);
+            Long addressId = addressService.addAddress(request).id();
+            addressEntity = addressService.getAddressEntityById(addressId);
         }
 
         Optional<AddressEntity> finalAddressEntity = addressEntity;
-        return clientRepository.findById(id).map(client -> {
+        return clientRepository.findById(clientId).map(client -> {
             if (finalAddressEntity.isPresent()) {
                 client.setAddress(finalAddressEntity.get());
             }
-            client = clientRepository.save(client);
+//            client = clientRepository.save(client);
+            clientRepository.save(client);
             return new ClientResponse(
                     client.getId(),
                     client.getClientName(),

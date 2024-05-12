@@ -16,7 +16,7 @@ public class SupplierEntity {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private AddressEntity address;
 
-    private String phone_number;
+    private String phoneNumber;
 
     public SupplierEntity() {
     }
@@ -24,7 +24,7 @@ public class SupplierEntity {
     public SupplierEntity(String name, AddressEntity address, String phone_number) {
         this.name = name;
         this.address = address;
-        this.phone_number = phone_number;
+        this.phoneNumber = phone_number;
     }
 
     @Override
@@ -32,12 +32,12 @@ public class SupplierEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SupplierEntity that = (SupplierEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(address, that.address) && Objects.equals(phone_number, that.phone_number);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(address, that.address) && Objects.equals(phoneNumber, that.phoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, address, phone_number);
+        return Objects.hash(id, name, address, phoneNumber);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class SupplierEntity {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address=" + address +
-                ", phone_number='" + phone_number + '\'' +
+                ", phone_number='" + phoneNumber + '\'' +
                 '}';
     }
 
@@ -74,11 +74,11 @@ public class SupplierEntity {
         this.address = address;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phone_number) {
+        this.phoneNumber = phone_number;
     }
 }

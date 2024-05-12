@@ -3,6 +3,7 @@ package com.vanesabo.backend.controller;
 import com.vanesabo.backend.request.AddressRequest;
 import com.vanesabo.backend.request.SupplierRequest;
 import com.vanesabo.backend.response.SupplierResponse;
+import com.vanesabo.backend.service.SupplierService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,9 +19,10 @@ public class SupplierController {
 
     @Autowired
     public SupplierService supplierService;
+
     //1
     @PostMapping
-    ResponseEntity<SupplierResponse> addNewSupplier(@Valid @RequestBody SupplierRequest request) {
+    public ResponseEntity<SupplierResponse> addNewSupplier(@Valid @RequestBody SupplierRequest request) {
         SupplierResponse newSupplier = supplierService.addNewSupplier(request);
         return new ResponseEntity<>(newSupplier, HttpStatus.CREATED);
     }
@@ -29,27 +31,32 @@ public class SupplierController {
     @PatchMapping("/{id}")
 //    ResponseEntity<SupplierResponse> updateSupplierAddress(@PathVariable Long id, @RequestParam Long newAddress) {
     //////////////////////////------------------------------------------------------------------------------------------------------
-    ResponseEntity<SupplierResponse> updateSupplierAddress(@PathVariable Long id, @RequestBody AddressRequest newAddress) {
-        return new ResponseEntity<>(supplierService.updateSupplierAddress(id, newAddress), HttpStatus.CREATED);
+    public ResponseEntity<SupplierResponse> updateSupplierAddress(
+            @PathVariable Long id,
+            @RequestBody AddressRequest request) {
+//        return new ResponseEntity<>(supplierService.updateSupplierAddress(id, request), HttpStatus.CREATED);
+        return supplierService.updateSupplierAddress(id, request)
+                .map(ResponseEntity::ok)
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     //3
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> deleteById(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         supplierService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //4
     @GetMapping
-    ResponseEntity<List<SupplierResponse>> getAllSuppliers() {
+    public ResponseEntity<List<SupplierResponse>> getAllSuppliers() {
         List<SupplierResponse> suppliers = supplierService.getAllSuppliers();
         return ResponseEntity.ok(suppliers);
     }
 
     //5
     @GetMapping("/{id}")
-    ResponseEntity<SupplierResponse> getSupplierById(@PathVariable Long id) {
+    public ResponseEntity<SupplierResponse> getSupplierById(@PathVariable Long id) {
         SupplierResponse supplier = supplierService.getSupplierById(id);
         return ResponseEntity.ok(supplier);
     }

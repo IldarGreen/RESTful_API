@@ -7,6 +7,6 @@ import jakarta.validation.constraints.NotNull;
 
 public record SupplierRequest(
         @NotBlank(message = "Name cannot be empty") String name,
-        @NotNull(message = "Address ID cannot be null") UUID addressId,
+        @NotNull(message = "Address ID cannot be null") Long addressId,
         @NotBlank(message = "Phone number cannot be empty") String phoneNumber) {
 }
