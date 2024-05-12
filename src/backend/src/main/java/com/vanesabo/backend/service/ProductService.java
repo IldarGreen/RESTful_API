@@ -31,7 +31,6 @@ public class ProductService {
         ImagesEntity imagesEntity = imagesService.getImagesEntityById(request.imageId());
 
         ProductEntity newEntity = new ProductEntity(
-//                UUID.randomUUID(),
                 request.name(),
                 request.category(),
                 request.price(),

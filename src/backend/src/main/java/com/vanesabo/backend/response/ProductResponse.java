@@ -10,7 +10,7 @@ public record ProductResponse(
         String category,
         BigDecimal price,
         Integer availableStock,
-        LocalDate lastUpdateDate,
+        String lastUpdateDate,
         Long supplierId,
         UUID imageId
 ) {}
