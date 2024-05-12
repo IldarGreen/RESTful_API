@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/suppliers")
@@ -28,23 +27,22 @@ public class SupplierController {
     }
 
     //2
-    @PatchMapping("/{id}")
-//    ResponseEntity<SupplierResponse> updateSupplierAddress(@PathVariable Long id, @RequestParam Long newAddress) {
-    //////////////////////////------------------------------------------------------------------------------------------------------
+    @PatchMapping("/{id}/address")
     public ResponseEntity<SupplierResponse> updateSupplierAddress(
             @PathVariable Long id,
             @RequestBody AddressRequest request) {
-//        return new ResponseEntity<>(supplierService.updateSupplierAddress(id, request), HttpStatus.CREATED);
         return supplierService.updateSupplierAddress(id, request)
                 .map(ResponseEntity::ok)
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     //3
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+//    @DeleteMapping("/{id}")
+    @GetMapping("/{id}/delete")
+    public ResponseEntity<Void> deleteSupplierById(@PathVariable Long id) {
         supplierService.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+//        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 
     //4

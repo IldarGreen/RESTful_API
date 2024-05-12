@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "8459eb50-6c3f-4172-b2fb-04e2151b26b9",
+		"_postman_id": "da38c000-42d1-4f83-b45a-27fc8893415b",
 		"name": "Backend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "32960552"
@@ -14,7 +14,7 @@
 			"name": "Clients",
 			"item": [
 				{
-					"name": "clients/search",
+					"name": "getClientsByNameAndSurname",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -41,7 +41,7 @@
 					"response": []
 				},
 				{
-					"name": "add_clients",
+					"name": "addClient",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -59,7 +59,7 @@
 					"response": []
 				},
 				{
-					"name": "clients/1/address",
+					"name": "updateClientAddress",
 					"request": {
 						"method": "PATCH",
 						"header": [],
@@ -77,7 +77,7 @@
 					"response": []
 				},
 				{
-					"name": "clients/getAllClientsPaginated",
+					"name": "getAllClientsPaginated",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -100,6 +100,83 @@
 							]
 						},
 						"url": "http://localhost:8080/clients"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteClientById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/clients/3/delete"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Suppliers",
+			"item": [
+				{
+					"name": "getAllSuppliers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/suppliers"
+					},
+					"response": []
+				},
+				{
+					"name": "addNewSupplier",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Александра Фролова\",\n    \"addressId\": 2,\n    \"phoneNumber\": \"+89686571111\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/suppliers"
+					},
+					"response": []
+				},
+				{
+					"name": "getSupplierById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/suppliers/2"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSupplierById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/suppliers/5/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "updateSupplierAddress",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"country\": \"Россия\",\n    \"city\": \"Липецк\",\n    \"street\": \"Первый переулок\"\n}\n\n// {\n//     \"country\": \"Россия\",\n//     \"city\": \"Сакт-Петербург\",\n//     \"street\": \"Лунная\"\n// }\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/suppliers/1/address"
 					},
 					"response": []
 				}

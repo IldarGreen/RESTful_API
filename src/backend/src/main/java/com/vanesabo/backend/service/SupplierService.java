@@ -44,21 +44,6 @@ public class SupplierService {
     }
 
     //2
-//    public SupplierResponse updateSupplierAddress(Long supplierId, AddressRequest newAddressId) {
-//        SupplierEntity supplier = supplierRepository.findById(supplierId)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-//                        "Supplier not found with id: " + supplierId));
-//        AddressEntity newAddress = addressService.getAddressEntityById(newAddressId);
-//
-//        supplier.setAddress(newAddress);
-//        SupplierEntity updatedSupplier = supplierRepository.save(supplier);
-//
-//        return new SupplierResponse(
-//                updatedSupplier.getId(),
-//                updatedSupplier.getName(),
-//                updatedSupplier.getAddress().getId(),
-//                updatedSupplier.getPhoneNumber());
-//    }
     public Optional<SupplierResponse> updateSupplierAddress(Long supplierId, AddressRequest request) {
         Optional<AddressEntity> addressEntity = addressService.getAddressByAllField(request.country(), request.city(), request.street());
 
@@ -72,6 +57,7 @@ public class SupplierService {
             if (finalAddressEntity.isPresent()) {
                 supplier.setAddress(finalAddressEntity.get());
             }
+
             supplierRepository.save(supplier);
             return new SupplierResponse(
                 supplier.getId(),
