@@ -17,13 +17,15 @@ public class AddressController {
     @Autowired
     private AddressService addressService;
 
-    @PostMapping
-    public ResponseEntity<AddressResponse> addClient(@RequestBody AddressRequest request) {
-        return new ResponseEntity<>(addressService.addAddress(request), HttpStatus.OK);
-    }
+//    не мапим это
+//    @PostMapping //не мапим
+//    public ResponseEntity<AddressResponse> addAddress(@RequestBody AddressRequest request) {
+//        return new ResponseEntity<>(addressService.addAddress(request), HttpStatus.OK);
+//    }
 
     @GetMapping()
     public ResponseEntity<List<AddressResponse>> getAllAddreses() {
+
         return new ResponseEntity<>(addressService.getAllAddreses(), HttpStatus.OK);
     }
 

@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -96,8 +97,7 @@ public class ProductService {
 
     //4
     public List<ProductResponse> getAllProducts() {
-        List<ProductEntity> products = productRepository.findAll();
-        return products.stream()
+        return productRepository.findAll().stream()
                 .map(product -> new ProductResponse(
                         product.getId(),
                         product.getName(),
@@ -107,7 +107,7 @@ public class ProductService {
                         product.getLastUpdateDate(),
                         product.getSupplier().getId(),
                         product.getImage().getId()))
-                .toList();
+                .collect(Collectors.toList());
     }
 
     //5

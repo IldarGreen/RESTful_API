@@ -4,16 +4,18 @@ import com.vanesabo.backend.request.ProductRequest;
 import com.vanesabo.backend.response.ProductResponse;
 import com.vanesabo.backend.service.ProductService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
+@RestController
 @RequestMapping("/products")
 public class ProductController {
 
+    @Autowired
     private ProductService productService;
 
     //1
@@ -42,8 +44,8 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
     //5
-    @DeleteMapping("/{id}")
-    ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+    @GetMapping("/{id}/delete")
+    ResponseEntity<Void> deleteProductById(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.ok().build();
     }

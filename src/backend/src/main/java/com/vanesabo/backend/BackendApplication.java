@@ -81,6 +81,8 @@ public class BackendApplication {
 //            byte[] CDRIVES = "\u00e0\u004f\u00d0\u0020\u00ea\u003a\u0069\u0010\u00a2\u00d8\u0008\u0000\u002b\u0030\u0030\u009d".getBytes();
             byte[] image1 = HexFormat.of().parseHex("e04fd020ea3a6910a2d808002b30309d");
             byte[] image2 = HexFormat.of().parseHex("e03fd020ea3a6910a2d808002b30309d");
+            byte[] image3 = HexFormat.of().parseHex("903fd020ea3a6910a2d808002b30319d");
+            byte[] image4 = HexFormat.of().parseHex("903fd020ea3a6910a2d808002b30329d");
 
             ProductEntity pr1 = new ProductEntity("Богарт", "Духи", new BigDecimal(1000), 10, "2024-05-10", sp1, null);
             ProductEntity pr2 = new ProductEntity("Невская политра 30", "Краски", new BigDecimal(1500), 4, "2024-05-10", sp2, null);
@@ -88,8 +90,10 @@ public class BackendApplication {
 
             ImagesEntity im1 = new ImagesEntity(image1, List.of(pr1));
             ImagesEntity im2 = new ImagesEntity(image2, List.of(pr2, pr3));
+            ImagesEntity im3 = new ImagesEntity(image3, null);
+            ImagesEntity im4 = new ImagesEntity(image3, null);
 
-            imagesRepository.saveAll(List.of(im1, im2));
+            imagesRepository.saveAll(List.of(im1, im2, im3, im4));
 
             pr1.setImage(im1);
             pr2.setImage(im2);

@@ -30,7 +30,6 @@ public class SupplierService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                 "Address not found with id: " + request.addressId()));
         SupplierEntity newSupplierEntity = new SupplierEntity(
-//                UUID.randomUUID(),
                 request.name(),
                 address,
                 request.phoneNumber());
