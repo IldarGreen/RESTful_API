@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public record ProductRequest(
         @NotBlank(message = "Name cannot be empty") String name,
@@ -15,7 +16,7 @@ public record ProductRequest(
         @NotNull(message = "Available stock cannot be null") @Positive(message = "availableStock must be positive") Integer availableStock,
         @NotNull(message = "Last update date cannot be null") @PastOrPresent(message = "Last update date must be in the past or present") LocalDate lastUpdateDate,
         @NotNull(message = "Supplier ID cannot be null") Long supplierId,
-        @NotNull(message = "Image ID cannot be null") Long imageId
+        @NotNull(message = "Image ID cannot be null") UUID imageId
 ) {
 
 }

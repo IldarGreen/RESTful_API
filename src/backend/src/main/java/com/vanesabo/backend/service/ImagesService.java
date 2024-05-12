@@ -1,7 +1,9 @@
 package com.vanesabo.backend.service;
 
 import com.vanesabo.backend.model.ImagesEntity;
+import com.vanesabo.backend.model.ProductEntity;
 import com.vanesabo.backend.repository.ImagesRepository;
+import com.vanesabo.backend.repository.ProductRepository;
 import com.vanesabo.backend.request.ImagesRequest;
 import com.vanesabo.backend.response.ImagesResponse;
 import jakarta.validation.Valid;
@@ -10,22 +12,35 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Base64;
-import java.util.UUID;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ImagesService {
     @Autowired
     private ImagesRepository imagesRepository;
     @Autowired
-    private static String IMAGE_NOT_FOUND = "Image not found";
+    private ProductRepository productRepository;
+    private final static String IMAGE_NOT_FOUND = "Image not found";
 
     //1
-    public ImagesResponse addImagesEntity(@Valid ImagesRequest request) {
+//    public ImagesResponse addImagesEntity(@Valid ImagesRequest request) {
+    public ImagesResponse addImagesEntity(@Valid ImagesRequest request, Long productId) {
         byte[] decodedImage = Base64.getDecoder().decode(request.image());
-        ImagesEntity newImage = new ImagesEntity(UUID.randomUUID(), decodedImage, null);
-        ImagesEntity savedImage = imagesRepository.save(newImage);
+
+        ImagesEntity newImage = null;
+        Optional<ProductEntity> product = productRepository.findById(productId);
+        if (product.isPresent()) {
+            ProductEntity productEntity = product.get();
+            productRepository.save(productEntity);
+            newImage = new ImagesEntity(decodedImage, new ArrayList<>() {
+                {
+                    add(productEntity);
+                }
+            });
+        }
+
+//        ImagesEntity newImage = new ImagesEntity(decodedImage, );
+        ImagesEntity savedImage = imagesRepository.save(newImage);///////////////////////////////////////////
 
         return new ImagesResponse(savedImage.getId(), savedImage.getImage());
     }
@@ -34,10 +49,9 @@ public class ImagesService {
     public ImagesResponse updateImageById(UUID id, @Valid ImagesRequest request) {
         ImagesEntity existingImage = imagesRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, IMAGE_NOT_FOUND + id));
+
         byte[] decodedImage = Base64.getDecoder().decode(request.image());
-
         existingImage.setImage(decodedImage);
-
         ImagesEntity updatedImage = imagesRepository.save(existingImage);
 
         return new ImagesResponse(updatedImage.getId(), updatedImage.getImage());
@@ -52,7 +66,7 @@ public class ImagesService {
     }
 
     //4
-    public List<ImagesResponse> getImagesByProductId(UUID productId) {
+    public List<ImagesResponse> getImagesByProductId(Long productId) {
         List<ImagesEntity> imagesEntity = imagesRepository.findByProductsId(productId);
         return imagesEntity.stream()
                 .map(image -> new ImagesResponse(

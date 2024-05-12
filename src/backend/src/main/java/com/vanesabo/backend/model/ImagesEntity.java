@@ -22,9 +22,14 @@ public class ImagesEntity {
     public ImagesEntity() {
     }
 
-    public ImagesEntity(byte[] image) {
+    public ImagesEntity(byte[] image, List<ProductEntity> products) {
         this.image = image;
+        this.products = products;
     }
+
+//    public ImagesEntity(byte[] image) {
+//        this.image = image;
+//    }
 
     @Override
     public boolean equals(Object o) {
