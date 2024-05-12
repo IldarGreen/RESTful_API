@@ -8,7 +8,94 @@
 	"item": [
 		{
 			"name": "Product",
-			"item": []
+			"item": [
+				{
+					"name": "addProduct",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Лен на раме\",\n    \"category\": \"Холст\",\n    \"price\": 300.00,\n    \"availableStock\": 40,\n    \"lastUpdateDate\": \"2024-05-10\",\n    \"supplierId\": 2,\n    // Заменить на существующий UUID для iamgeId\n    \"imageId\": \"03892158-b53a-4027-a571-799973fbc9bb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/products"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllProducts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/products"
+					},
+					"response": []
+				},
+				{
+					"name": "getProductById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/products/2"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProductById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/products/2/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "reduceAvailableStock",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Кэлен",
+									"type": "text"
+								},
+								{
+									"key": "surname",
+									"value": "Амнелл",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/products/1?amount=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"products",
+								"1"
+							],
+							"query": [
+								{
+									"key": "amount",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Clients",
@@ -65,7 +152,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    // \"id\": 3, \n    \"country\": \"Тайланд\",\n    \"city\": \"Бангкок\",\n    \"street\": \"улица\"\n}\n\n// {\n//     // \"id\": 1,\n//     \"country\": \"Франция\",\n//     \"city\": \"Леон\",\n//     \"street\": \"Вьен\"\n// }\n\n// {\n//     \"id\": 2,\n//     \"country\": \"Россия\",\n//     \"city\": \"Сакт-Петербург\",\n//     \"street\": \"Лунная\"\n// }\n\n// {\n//     \"country\": null,\n//     \"city\": \"Бангкок\",\n//     \"street\": \"улица\"\n// }",
+							"raw": "{\n    \"country\": \"Тайланд\",\n    \"city\": \"Бангкок\",\n    \"street\": \"улица\"\n}\n\n// {\n//     \"country\": \"Франция\",\n//     \"city\": \"Леон\",\n//     \"street\": \"Вьен\"\n// }\n\n// {\n//     \"country\": \"Россия\",\n//     \"city\": \"Сакт-Петербург\",\n//     \"street\": \"Лунная\"\n// }\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -177,6 +264,52 @@
 							}
 						},
 						"url": "http://localhost:8080/suppliers/1/address"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Addresses",
+			"item": [
+				{
+					"name": "getAllAddreses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/addresses"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Images",
+			"item": [
+				{
+					"name": "addImage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Лен на раме\",\n    \"category\": \"Холст\",\n    \"price\": 300.00,\n    \"availableStock\": 40,\n    \"lastUpdateDate\": \"2024-05-10\",\n    \"supplierId\": 2,\n    // Заменить на существующий UUID для iamgeId\n    \"imageId\": \"03892158-b53a-4027-a571-799973fbc9bb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/products "
+					},
+					"response": []
+				},
+				{
+					"name": "deleteImageById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/images/bbf054e4-732f-40e3-a375-fa425200c39d/delete"
 					},
 					"response": []
 				}
