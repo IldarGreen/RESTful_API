@@ -61,7 +61,7 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    public Optional<ClientEntity> findById(@Valid @PathVariable("id") Long id) {
+    public Optional<ClientEntity> findById(@PathVariable("id") Long id) {
         return clientService.findById(id);
     }
 

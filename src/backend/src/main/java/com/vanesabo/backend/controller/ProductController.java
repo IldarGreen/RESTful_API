@@ -26,7 +26,6 @@ public class ProductController {
     }
     //2
     @PatchMapping("/{id}")
-//    ResponseEntity<ProductResponse> decreaseProductStock(@PathVariable UUID id, @RequestParam int amount);
     ResponseEntity<ProductResponse> reduceAvailableStock(@PathVariable Long id, @RequestParam Integer amount) {
         ProductResponse updatedProduct = productService.reduceAvailableStock(id, amount);
         return ResponseEntity.ok(updatedProduct);
@@ -49,4 +48,5 @@ public class ProductController {
         productService.deleteProduct(id);
         return ResponseEntity.ok().build();
     }
+
 }

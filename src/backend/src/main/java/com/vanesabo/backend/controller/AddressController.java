@@ -1,6 +1,5 @@
 package com.vanesabo.backend.controller;
 
-import com.vanesabo.backend.request.AddressRequest;
 import com.vanesabo.backend.response.AddressResponse;
 import com.vanesabo.backend.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
