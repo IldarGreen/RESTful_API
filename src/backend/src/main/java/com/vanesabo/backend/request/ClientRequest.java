@@ -5,16 +5,17 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.PastOrPresent;
+
+import java.time.LocalDate;
+
 
 public record ClientRequest(
-        @NotBlank(message = "Client name must be filled in") String clientName,
-//        @NotNull(message = "Client name must be filled in") String clientName,
-//        @NotBlank(message = "Client surname must be filled in") String clientSurname,
-        @NotNull(message = "Client surname must be filled in") String clientSurname,
-        @Past(message = "Birthday must be in the past") String birthday,
-//        String birthday,
+        @NotBlank(message = "Client name is mandatory") String clientName,
+        @NotBlank(message = "Client surname is mandatory") String clientSurname,
+        @Past(message = "Birthday date cannot cannot be later than yesterday") LocalDate birthday,
         @Pattern(regexp = "M|F", message = "Gender must be 'M' or 'F'") String gender,
-        @NotBlank(message = "Registration date must be filled in") String registrationDate,
-//        @NotNull(message = "Address ID cannot be null") Long addressId
-        Long addressId
-) {}
+        @PastOrPresent(message = "registration date cannot be later than today") LocalDate registrationDate,
+        @NotNull(message = "Address ID cannot be null") Long addressId
+) {
+}

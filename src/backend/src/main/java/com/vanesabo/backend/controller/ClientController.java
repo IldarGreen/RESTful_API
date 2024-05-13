@@ -22,7 +22,7 @@ public class ClientController {
     private ClientService clientService;
 
     @PostMapping
-    public ResponseEntity<ClientResponse> addClient(@RequestBody ClientRequest request) {
+    public ResponseEntity<ClientResponse> addClient(@Valid @RequestBody ClientRequest request) {
         ClientResponse newClient = clientService.addClient(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(newClient);
     }

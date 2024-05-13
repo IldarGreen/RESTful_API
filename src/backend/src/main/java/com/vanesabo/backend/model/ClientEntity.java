@@ -3,6 +3,8 @@ package com.vanesabo.backend.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "client")
 public class ClientEntity {
@@ -13,9 +15,9 @@ public class ClientEntity {
 //    @NotBlank///////////////////////////////////////////////////////
     private String clientName;
     private String clientSurname;
-    private String birthday;
+    private LocalDate birthday;
     private String gender;
-    private String registrationDate;
+    private LocalDate registrationDate;
 
     @ManyToOne
     @JoinColumn(name = "address_id", referencedColumnName = "id")
@@ -24,7 +26,7 @@ public class ClientEntity {
     public ClientEntity() {
     }
 
-    public ClientEntity(String client_name, String client_surname, String birthday, String gender, String registration_date, AddressEntity address) {
+    public ClientEntity(String client_name, String client_surname, LocalDate birthday, String gender, LocalDate registration_date, AddressEntity address) {
         this.clientName = client_name;
         this.clientSurname = client_surname;
         this.birthday = birthday;
@@ -69,11 +71,11 @@ public class ClientEntity {
         this.clientSurname = client_surname;
     }
 
-    public String getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
@@ -85,11 +87,11 @@ public class ClientEntity {
         this.gender = gender;
     }
 
-    public String getRegistrationDate() {
+    public LocalDate getRegistrationDate() {
         return registrationDate;
     }
 
-    public void setRegistrationDate(String registration_date) {
+    public void setRegistrationDate(LocalDate registration_date) {
         this.registrationDate = registration_date;
     }
 

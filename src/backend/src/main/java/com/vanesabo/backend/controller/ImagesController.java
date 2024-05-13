@@ -24,11 +24,9 @@ public class ImagesController {
     private ProductService productService;
 
     //1
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-//    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @PostMapping(value = "/{productId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-//    ResponseEntity<ImagesResponse> addImage(@Valid @RequestBody ImagesRequest request) {
-    ResponseEntity<ImagesResponse> addImage(@Valid @RequestBody ImagesRequest request, @PathVariable Long productId) {
+//    ResponseEntity<ImagesResponse> addImage(@Valid @RequestBody ImagesRequest request, @PathVariable Long productId) {
+        ResponseEntity<ImagesResponse> addImage(@RequestBody ImagesRequest request, @PathVariable Long productId) {
         ImagesResponse newImage = imagesService.addImagesEntity(request, productId);
 
         return new ResponseEntity<>(newImage, HttpStatus.CREATED);
@@ -36,7 +34,8 @@ public class ImagesController {
 
     //2
     @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<ImagesResponse> updateImageById(@PathVariable UUID id, @Valid @RequestBody ImagesRequest request) {
+//    ResponseEntity<ImagesResponse> updateImageById(@PathVariable UUID id, @Valid @RequestBody ImagesRequest request) {
+        ResponseEntity<ImagesResponse> updateImageById(@PathVariable UUID id, @RequestBody ImagesRequest request) {
         return new ResponseEntity<>(imagesService.updateImageById(id, request), HttpStatus.OK);
     }
 

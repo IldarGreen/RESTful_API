@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Лен на раме\",\n    \"category\": \"Холст\",\n    \"price\": 300.00,\n    \"availableStock\": 40,\n    \"lastUpdateDate\": \"2024-05-10\",\n    \"supplierId\": 2,\n    // Заменить на существующий UUID для iamgeId\n    \"imageId\": \"03892158-b53a-4027-a571-799973fbc9bb\"\n}",
+							"raw": "{\n    \"name\": \"Лен на раме\",\n    \"category\": \"Холст\",\n    \"price\": 300.00,\n    \"availableStock\": 40,\n    \"lastUpdateDate\": \"2024-05-10\",\n    \"supplierId\": 2,\n    // Заменить на существующий UUID для iamgeId\n    \"imageId\": \"610d0af4-2ee4-4a12-93e1-a294855b0abc\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -293,14 +293,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Лен на раме\",\n    \"category\": \"Холст\",\n    \"price\": 300.00,\n    \"availableStock\": 40,\n    \"lastUpdateDate\": \"2024-05-10\",\n    \"supplierId\": 2,\n    // Заменить на существующий UUID для iamgeId\n    \"imageId\": \"03892158-b53a-4027-a571-799973fbc9bb\"\n}",
+							"raw": "{\n    // \"image\": \"4D/QIOo6aRCi2AgAKzAwnQ==\"\n    \"image\": \"kD/QIOo6aRCi2AgAKzAxnQ==\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:8080/products "
+						"url": "http://localhost:8080/images/1"
 					},
 					"response": []
 				},
@@ -309,7 +309,43 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/images/bbf054e4-732f-40e3-a375-fa425200c39d/delete"
+						"url": "http://localhost:8080/images/58a324b7-0dd1-4121-a139-2e9230eeff24/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "getImagesByProductId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/images/product/3"
+					},
+					"response": []
+				},
+				{
+					"name": "updateImageById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    // \"image\": \"4D/QIOo6aRCi2AgAKzAwnQ==\"\n    \"image\": \"kD/QIOo6aRCi2AgAKzAxnQ==\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/images/45b37627-b301-4f85-9395-e212d2b5f689"
+					},
+					"response": []
+				},
+				{
+					"name": "getImageById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/images/b8540fdc-3871-4cfe-86bb-a995d929d056"
 					},
 					"response": []
 				}

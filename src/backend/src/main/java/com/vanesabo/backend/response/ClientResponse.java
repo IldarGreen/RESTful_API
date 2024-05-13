@@ -1,11 +1,13 @@
 package com.vanesabo.backend.response;
 
+import java.time.LocalDate;
+
 public record ClientResponse(
         Long id,
         String clientName,
         String clientSurname,
-        String birthday,
+        LocalDate birthday,
         String gender,
-        String registrationDate,
+        LocalDate registrationDate,
         Long addressId
 ) {}

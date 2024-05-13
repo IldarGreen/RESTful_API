@@ -17,7 +17,7 @@ public class ProductEntity {
     private String category;
     private BigDecimal price;
     private Integer availableStock;
-    private String lastUpdateDate;
+    private LocalDate lastUpdateDate;
 
     @ManyToOne
     @JoinColumn(name = "supplier_id", referencedColumnName = "id")
@@ -30,7 +30,7 @@ public class ProductEntity {
     public ProductEntity() {
     }
 
-    public ProductEntity(String name, String category, BigDecimal price, Integer availableStock, String lastUpdateDate, SupplierEntity supplier) {
+    public ProductEntity(String name, String category, BigDecimal price, Integer availableStock, LocalDate lastUpdateDate, SupplierEntity supplier) {
         this.name = name;
         this.category = category;
         this.price = price;
@@ -39,7 +39,7 @@ public class ProductEntity {
         this.supplier = supplier;
     }
 
-    public ProductEntity(String name, String category, BigDecimal price, Integer availableStock, String lastUpdateDate, SupplierEntity supplier, ImagesEntity image) {
+    public ProductEntity(String name, String category, BigDecimal price, Integer availableStock, LocalDate lastUpdateDate, SupplierEntity supplier, ImagesEntity image) {
         this.name = name;
         this.category = category;
         this.price = price;
@@ -116,11 +116,11 @@ public class ProductEntity {
         this.availableStock = availableStock;
     }
 
-    public String getLastUpdateDate() {
+    public LocalDate getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(String lastUpdateDate) {
+    public void setLastUpdateDate(LocalDate lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 
