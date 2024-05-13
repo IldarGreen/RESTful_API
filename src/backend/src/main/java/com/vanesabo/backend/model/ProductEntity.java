@@ -30,6 +30,15 @@ public class ProductEntity {
     public ProductEntity() {
     }
 
+    public ProductEntity(String name, String category, BigDecimal price, Integer availableStock, String lastUpdateDate, SupplierEntity supplier) {
+        this.name = name;
+        this.category = category;
+        this.price = price;
+        this.availableStock = availableStock;
+        this.lastUpdateDate = lastUpdateDate;
+        this.supplier = supplier;
+    }
+
     public ProductEntity(String name, String category, BigDecimal price, Integer availableStock, String lastUpdateDate, SupplierEntity supplier, ImagesEntity image) {
         this.name = name;
         this.category = category;

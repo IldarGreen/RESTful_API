@@ -23,24 +23,21 @@ public class ImagesService {
     private final static String IMAGE_NOT_FOUND = "Image not found";
 
     //1
-//    public ImagesResponse addImagesEntity(@Valid ImagesRequest request) {
     public ImagesResponse addImagesEntity(@Valid ImagesRequest request, Long productId) {
         byte[] decodedImage = Base64.getDecoder().decode(request.image());
 
-        ImagesEntity newImage = null;
-        Optional<ProductEntity> product = productRepository.findById(productId);
-        if (product.isPresent()) {
-            ProductEntity productEntity = product.get();
-            productRepository.save(productEntity);
-            newImage = new ImagesEntity(decodedImage, new ArrayList<>() {
-                {
-                    add(productEntity);
-                }
-            });
-        }
+        ProductEntity productEntity = productRepository.findById(productId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Supplier not found with id: " + productId));
 
-//        ImagesEntity newImage = new ImagesEntity(decodedImage, );
-        ImagesEntity savedImage = imagesRepository.save(newImage);///////////////////////////////////////////
+        ImagesEntity newImage = new ImagesEntity(decodedImage, new ArrayList<>() {
+            {
+                add(productEntity);
+            }
+        });
+        ImagesEntity savedImage = imagesRepository.save(newImage);
+        productEntity.setImage(newImage);
+        productRepository.save(productEntity);
 
         return new ImagesResponse(savedImage.getId(), savedImage.getImage());
     }

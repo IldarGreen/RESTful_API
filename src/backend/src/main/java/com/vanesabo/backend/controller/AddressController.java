@@ -25,7 +25,6 @@ public class AddressController {
 
     @GetMapping()
     public ResponseEntity<List<AddressResponse>> getAllAddreses() {
-
         return new ResponseEntity<>(addressService.getAllAddreses(), HttpStatus.OK);
     }
 

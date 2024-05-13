@@ -3,6 +3,7 @@ package com.vanesabo.backend.controller;
 import com.vanesabo.backend.request.ImagesRequest;
 import com.vanesabo.backend.response.ImagesResponse;
 import com.vanesabo.backend.service.ImagesService;
+import com.vanesabo.backend.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,13 +20,17 @@ public class ImagesController {
 
     @Autowired
     private ImagesService imagesService;
+    @Autowired
+    private ProductService productService;
 
     //1
     ///////////////////////////////////////////////////////////////////////////////////////////////////
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+//    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/{productId}", consumes = MediaType.APPLICATION_JSON_VALUE)
 //    ResponseEntity<ImagesResponse> addImage(@Valid @RequestBody ImagesRequest request) {
     ResponseEntity<ImagesResponse> addImage(@Valid @RequestBody ImagesRequest request, @PathVariable Long productId) {
         ImagesResponse newImage = imagesService.addImagesEntity(request, productId);
+
         return new ResponseEntity<>(newImage, HttpStatus.CREATED);
     }
 
@@ -44,7 +49,7 @@ public class ImagesController {
     }
 
     //4
-    @GetMapping("/byproduct/{productId}")
+    @GetMapping("/product/{productId}")
     ResponseEntity<List<ImagesResponse>> getImagesByProductId(@PathVariable Long productId) {
         return new ResponseEntity<>(imagesService.getImagesByProductId(productId), HttpStatus.OK);
     }
