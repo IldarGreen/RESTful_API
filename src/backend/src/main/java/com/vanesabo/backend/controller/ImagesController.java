@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/images")
+@RequestMapping("/api/v1/images")
 public class ImagesController {
 
     @Autowired

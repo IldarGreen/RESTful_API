@@ -23,7 +23,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/products"
+						"url": "http://localhost:8080/api/v1/products"
 					},
 					"response": []
 				},
@@ -32,7 +32,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/products"
+						"url": "http://localhost:8080/api/v1/products"
 					},
 					"response": []
 				},
@@ -41,7 +41,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/products/2"
+						"url": "http://localhost:8080/api/v1/products/2"
 					},
 					"response": []
 				},
@@ -50,7 +50,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/products/2/delete"
+						"url": "http://localhost:8080/api/v1/products/2/delete"
 					},
 					"response": []
 				},
@@ -75,13 +75,15 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8080/products/1?amount=2",
+							"raw": "http://localhost:8080/api/v1/products/1?amount=2",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
+								"api",
+								"v1",
 								"products",
 								"1"
 							],
@@ -123,7 +125,7 @@
 								}
 							]
 						},
-						"url": "http://localhost:8080/clients/search"
+						"url": "http://localhost:8080/api/v1/clients/search"
 					},
 					"response": []
 				},
@@ -134,14 +136,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    // \"clientName\": ,\n    \"clientSurname\": \"\",\n    \"birthday\": \"1000-04-05\",\n    \"gender\": \"D\",\n    \"registrationDate\": \"3000-05-06\",\n    \"addressId\": 1\n}\n\n// {\n//     \"clientName\": \"Кэлен222\",\n//     \"clientSurname\": \"Амнелл222\",\n//     \"birthday\": \"1000-04-05\",\n//     \"gender\": \"F\",\n//     \"registrationDate\": \"2014-05-06\",\n//     \"addressId\": 1\n// }",
+							"raw": "{\n    \"clientName\": \"Кэлен111\",\n    \"clientSurname\": \"Амнелл222\",\n    \"birthday\": \"1000-04-05\",\n    \"gender\": \"M\",\n    \"registrationDate\": \"2014-05-06\",\n    \"addressId\": 1\n}\n\n// {\n//     \"clientName\": \"Кэлен111\",\n//     \"clientSurname\": \"Амнелл222\",\n//     \"birthday\": \"1000-04-05\",\n//     \"gender\": \"F\",\n//     \"registrationDate\": \"2014-05-06\",\n//     \"addressId\": 1\n// }",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:8080/clients"
+						"url": "http://localhost:8080/api/v1/clients"
 					},
 					"response": []
 				},
@@ -159,7 +161,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/clients/1/address"
+						"url": "http://localhost:8080/api/v1/clients/1/address"
 					},
 					"response": []
 				},
@@ -186,7 +188,7 @@
 								}
 							]
 						},
-						"url": "http://localhost:8080/clients"
+						"url": "http://localhost:8080/api/v1/clients"
 					},
 					"response": []
 				},
@@ -195,7 +197,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/clients/3/delete"
+						"url": "http://localhost:8080/api/v1/clients/3/delete"
 					},
 					"response": []
 				}
@@ -209,7 +211,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/suppliers"
+						"url": "http://localhost:8080/api/v1/suppliers"
 					},
 					"response": []
 				},
@@ -220,14 +222,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Александра Фролова\",\n    \"addressId\": 2,\n    \"phoneNumber\": \"+89686571111\"\n}",
+							"raw": "{\n    \"name\": \"Александра Фролова\",\n    \"addressId\": 2,\n    \"phoneNumber\": \"+79686571111\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:8080/suppliers"
+						"url": "http://localhost:8080/api/v1/suppliers"
 					},
 					"response": []
 				},
@@ -236,7 +238,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/suppliers/2"
+						"url": "http://localhost:8080/api/v1/suppliers/2"
 					},
 					"response": []
 				},
@@ -245,7 +247,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/suppliers/5/delete"
+						"url": "http://localhost:8080/api/v1/suppliers/5/delete"
 					},
 					"response": []
 				},
@@ -263,7 +265,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/suppliers/1/address"
+						"url": "http://localhost:8080/api/v1/suppliers/1/address"
 					},
 					"response": []
 				}
@@ -277,7 +279,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/addresses"
+						"url": "http://localhost:8080/api/v1/addresses"
 					},
 					"response": []
 				}
@@ -300,7 +302,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/images/1"
+						"url": "http://localhost:8080/api/v1/images/1"
 					},
 					"response": []
 				},
@@ -309,7 +311,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/images/58a324b7-0dd1-4121-a139-2e9230eeff24/delete"
+						"url": "http://localhost:8080/api/v1/images/58a324b7-0dd1-4121-a139-2e9230eeff24/delete"
 					},
 					"response": []
 				},
@@ -318,7 +320,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/images/product/3"
+						"url": "http://localhost:8080/api/v1/images/product/3"
 					},
 					"response": []
 				},
@@ -336,7 +338,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/images/45b37627-b301-4f85-9395-e212d2b5f689"
+						"url": "http://localhost:8080/api/v1/images/45b37627-b301-4f85-9395-e212d2b5f689"
 					},
 					"response": []
 				},
@@ -345,7 +347,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/images/b8540fdc-3871-4cfe-86bb-a995d929d056"
+						"url": "http://localhost:8080/api/v1/images/b8540fdc-3871-4cfe-86bb-a995d929d056"
 					},
 					"response": []
 				}

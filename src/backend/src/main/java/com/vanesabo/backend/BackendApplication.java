@@ -27,10 +27,8 @@ public class BackendApplication {
 
     @Autowired
     BookRepository bookRepository;
-
     @Autowired
     AddressRepository addressRepository;
-
     @Autowired
     ClientRepository clientRepository;
 
