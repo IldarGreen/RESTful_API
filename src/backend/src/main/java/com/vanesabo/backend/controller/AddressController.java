@@ -1,7 +1,11 @@
 package com.vanesabo.backend.controller;
 
+import com.vanesabo.backend.request.AddressRequest;
 import com.vanesabo.backend.response.AddressResponse;
 import com.vanesabo.backend.service.AddressService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,17 +15,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/addresses")
+@Tag(name = "Address", description = "Operations related to address")
 public class AddressController {
 
     @Autowired
     private AddressService addressService;
 
-//    не мапим это
-//    @PostMapping //не мапим
-//    public ResponseEntity<AddressResponse> addAddress(@RequestBody AddressRequest request) {
-//        return new ResponseEntity<>(addressService.addAddress(request), HttpStatus.OK);
-//    }
+    //    не мапим это
+    @PostMapping
+    @Operation(summary = "Add a new address", description = "Adding a new address to the database.")
+    public ResponseEntity<AddressResponse> addAddress(@Valid @RequestBody AddressRequest request) {
+        return new ResponseEntity<>(addressService.addAddress(request), HttpStatus.OK);
+    }
 
+    @Operation(summary = "Get all addresses", description = "Getting a list of all addresses from the database.")
     @GetMapping()
     public ResponseEntity<List<AddressResponse>> getAllAddreses() {
         return new ResponseEntity<>(addressService.getAllAddreses(), HttpStatus.OK);

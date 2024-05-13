@@ -2,6 +2,7 @@ package com.vanesabo.backend.controller;
 
 import com.vanesabo.backend.model.Book;
 import com.vanesabo.backend.service.BookService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/books")
+@Tag(name = "Book", description = "Operations related to book")
 public class BookController {
 
     @Autowired
