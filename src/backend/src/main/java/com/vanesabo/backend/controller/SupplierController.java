@@ -60,10 +60,16 @@ public class SupplierController {
     }
 
     //5
+//    @GetMapping("/{id}")
+//    @Operation(summary = "Get supplier by ID", description = "Get a supplier by a specific id")
+//    public ResponseEntity<SupplierResponse> getSupplierById(@PathVariable Long id) {
+//        SupplierResponse supplier = supplierService.getSupplierById(id);
+//        return ResponseEntity.ok(supplier);
+//    }
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{id}")
     @Operation(summary = "Get supplier by ID", description = "Get a supplier by a specific id")
-    public ResponseEntity<SupplierResponse> getSupplierById(@PathVariable Long id) {
-        SupplierResponse supplier = supplierService.getSupplierById(id);
-        return ResponseEntity.ok(supplier);
+    public SupplierResponse getSupplierById(@PathVariable Long id) {
+        return supplierService.getSupplierById(id);
     }
 }

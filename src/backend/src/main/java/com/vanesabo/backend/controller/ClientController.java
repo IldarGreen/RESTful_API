@@ -24,11 +24,21 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
+////    @ResponseStatus(HttpStatus.CREATED) // 201
+//    @PostMapping
+//    @Operation(summary = "Add a new client", description = "Adding a new client to the database.")
+//    public ResponseEntity<ClientResponse> addClient(@Valid @RequestBody ClientRequest request) {
+//        ClientResponse newClient = clientService.addClient(request);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(newClient);
+////        return ResponseEntity.ok().body(newClient);
+//    }
+
+    @ResponseStatus(HttpStatus.CREATED) // 201
     @PostMapping
     @Operation(summary = "Add a new client", description = "Adding a new client to the database.")
-    public ResponseEntity<ClientResponse> addClient(@Valid @RequestBody ClientRequest request) {
-        ClientResponse newClient = clientService.addClient(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newClient);
+    public ClientResponse addClient(@Valid @RequestBody ClientRequest request) {
+//        return ResponseEntity.status(HttpStatus.CREATED).body(newClient);
+        return clientService.addClient(request);
     }
 
     @GetMapping("/{id}/delete")
