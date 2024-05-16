@@ -7,6 +7,8 @@ import com.vanesabo.backend.request.AddressRequest;
 import com.vanesabo.backend.request.SupplierRequest;
 import com.vanesabo.backend.response.ClientResponse;
 import com.vanesabo.backend.response.SupplierResponse;
+import com.vanesabo.backend.utils.ClientMapper;
+import com.vanesabo.backend.utils.SupplierMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static com.vanesabo.backend.utils.SupplierMapper.productEntityToSupplierResponse;
+import static com.vanesabo.backend.utils.SupplierMapper.productRequestToSupplierEntity;
+
 @Service
 public class SupplierService {
     @Autowired
@@ -25,21 +30,26 @@ public class SupplierService {
     private AddressService addressService;
 
     //1
-    public SupplierResponse addNewSupplier(SupplierRequest request) {
-        AddressEntity address = addressService.getAddressEntityById(request.addressId())
+    public SupplierResponse addNewSupplier(SupplierRequest supplierRequest) {
+        AddressEntity addressEntity = addressService.getAddressEntityById(supplierRequest.addressId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                "Address not found with id: " + request.addressId()));
-        SupplierEntity newSupplierEntity = new SupplierEntity(
-                request.name(),
-                address,
-                request.phoneNumber());
+                "Address not found with id: " + supplierRequest.addressId()));
+//        SupplierEntity newSupplierEntity = new SupplierEntity(
+//                request.name(),
+//                addressEntity,
+//                request.phoneNumber());
+//        SupplierEntity savedSupplier = supplierRepository.save(newSupplierEntity);
+//
+//        return new SupplierResponse(
+//                savedSupplier.getId(),
+//                savedSupplier.getName(),
+//                savedSupplier.getAddress().getId(),
+//                savedSupplier.getPhoneNumber());
+        SupplierEntity newSupplierEntity = productRequestToSupplierEntity(supplierRequest, addressEntity);
         SupplierEntity savedSupplier = supplierRepository.save(newSupplierEntity);
 
-        return new SupplierResponse(
-                savedSupplier.getId(),
-                savedSupplier.getName(),
-                savedSupplier.getAddress().getId(),
-                savedSupplier.getPhoneNumber());
+        return productEntityToSupplierResponse(savedSupplier);
+
     }
 
     //2
@@ -52,17 +62,18 @@ public class SupplierService {
         }
 
         Optional<AddressEntity> finalAddressEntity = addressEntity;
-        return supplierRepository.findById(supplierId).map(supplier -> {
+        return supplierRepository.findById(supplierId).map(supplierEntity -> {
             if (finalAddressEntity.isPresent()) {
-                supplier.setAddress(finalAddressEntity.get());
+                supplierEntity.setAddress(finalAddressEntity.get());
             }
 
-            supplierRepository.save(supplier);
-            return new SupplierResponse(
-                supplier.getId(),
-                supplier.getName(),
-                supplier.getAddress().getId(),
-                supplier.getPhoneNumber());
+            supplierRepository.save(supplierEntity);
+//            return new SupplierResponse(
+//                supplier.getId(),
+//                supplier.getName(),
+//                supplier.getAddress().getId(),
+//                supplier.getPhoneNumber());
+            return productEntityToSupplierResponse(supplierEntity);
         });
     }
 
@@ -77,13 +88,17 @@ public class SupplierService {
 
     //4
     public List<SupplierResponse> getAllSuppliers() {
+//        return supplierRepository.findAll().stream()
+//                .map(supplier -> new SupplierResponse(
+//                        supplier.getId(),
+//                        supplier.getName(),
+//                        supplier.getAddress().getId(),
+//                        supplier.getPhoneNumber()))
+//                .collect(Collectors.toList());
         return supplierRepository.findAll().stream()
-                .map(supplier -> new SupplierResponse(
-                        supplier.getId(),
-                        supplier.getName(),
-                        supplier.getAddress().getId(),
-                        supplier.getPhoneNumber()))
-                .collect(Collectors.toList());
+                .map(SupplierMapper::productEntityToSupplierResponse)
+//                .collect(Collectors.toList());/////////////////////////////////////////////////////TODO
+                .toList();/////////////////////////////////////////////??????????????????????////////TODO
     }
 
     //5
@@ -92,11 +107,12 @@ public class SupplierService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Supplier not found with id: " + id));
 
-        return new SupplierResponse(
-                supplierEntity.getId(),
-                supplierEntity.getName(),
-                supplierEntity.getAddress().getId(),
-                supplierEntity.getPhoneNumber());
+//        return new SupplierResponse(
+//                supplierEntity.getId(),
+//                supplierEntity.getName(),
+//                supplierEntity.getAddress().getId(),
+//                supplierEntity.getPhoneNumber());
+        return productEntityToSupplierResponse(supplierEntity);
     }
 
     public SupplierEntity getSupplierEntityById(Long id) {
