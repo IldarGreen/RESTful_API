@@ -6,6 +6,7 @@ import com.vanesabo.backend.repository.ClientRepository;
 import com.vanesabo.backend.request.AddressRequest;
 import com.vanesabo.backend.request.ClientRequest;
 import com.vanesabo.backend.response.ClientResponse;
+import com.vanesabo.backend.utils.ClientMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,9 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;
 
+import static com.vanesabo.backend.utils.ClientMapper.clientEntityToClientResponse;
+import static com.vanesabo.backend.utils.ClientMapper.clientRequestToClientEntity;
+
 @Service
 public class ClientService {
 
@@ -25,28 +29,34 @@ public class ClientService {
     @Autowired
     private AddressService addressService;
 
-    public ClientResponse addClient(ClientRequest request) {
-        AddressEntity addressEntity = addressService.getAddressById(request.addressId())
+    public ClientResponse addClient(ClientRequest clientRequest) {
+        AddressEntity addressEntity = addressService.getAddressById(clientRequest.addressId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Address not found with id: " + request.addressId()));
+                        "Address not found with id: " + clientRequest.addressId()));
 
-        ClientEntity client = new ClientEntity(
-                request.clientName(),
-                request.clientSurname(),
-                request.birthday(),
-                request.gender(),
-                request.registrationDate(),
-                addressEntity);
-        clientRepository.save(client);
+//        ClientEntity client = new ClientEntity(
+//                request.clientName(),
+//                request.clientSurname(),
+//                request.birthday(),
+//                request.gender(),
+//                request.registrationDate(),
+//                addressEntity);
+//        clientRepository.save(clientEntity);
+//
+//        return new ClientResponse(
+//                clientEntity.getId(),
+//                clientEntity.getClientName(),
+//                clientEntity.getClientSurname(),
+//                clientEntity.getBirthday(),
+//                clientEntity.getGender(),
+//                clientEntity.getRegistrationDate(),
+//                clientEntity.getAddress().getId());
 
-        return new ClientResponse(
-                client.getId(),
-                client.getClientName(),
-                client.getClientSurname(),
-                client.getBirthday(),
-                client.getGender(),
-                client.getRegistrationDate(),
-                client.getAddress().getId());
+
+        ClientEntity clientEntity = clientRequestToClientEntity(clientRequest, addressEntity);
+        clientRepository.save(clientEntity);
+
+        return clientEntityToClientResponse(clientEntity);
     }
 
     public void deleteById(Long id) {
@@ -58,15 +68,19 @@ public class ClientService {
 
     public List<ClientResponse> getClientsByNameAndSurname(String name, String surname) {
         List<ClientEntity> clientEntity = clientRepository.findByClientNameAndClientSurname(name, surname);
-        return clientEntity.stream()
-                .map(client -> new ClientResponse(
-                        client.getId(),
-                        client.getClientName(),
-                        client.getClientSurname(),
-                        client.getBirthday(),
-                        client.getGender(),
-                        client.getRegistrationDate(),
-                        client.getAddress().getId()))
+//        return clientEntity.stream()
+//                .map(client -> new ClientResponse(
+//                        client.getId(),
+//                        client.getClientName(),
+//                        client.getClientSurname(),
+//                        client.getBirthday(),
+//                        client.getGender(),
+//                        client.getRegistrationDate(),
+//                        client.getAddress().getId()))
+//                .toList();
+        return clientEntity
+                .stream()
+                .map(ClientMapper::clientEntityToClientResponse)
                 .toList();
     }
 
@@ -79,20 +93,20 @@ public class ClientService {
         }
 
         Optional<AddressEntity> finalAddressEntity = addressEntity;
-        return clientRepository.findById(clientId).map(client -> {
+        return clientRepository.findById(clientId).map(clientEntity -> {
             if (finalAddressEntity.isPresent()) {
-                client.setAddress(finalAddressEntity.get());
+                clientEntity.setAddress(finalAddressEntity.get());
             }
-//            client = clientRepository.save(client);
-            clientRepository.save(client);
-            return new ClientResponse(
-                    client.getId(),
-                    client.getClientName(),
-                    client.getClientSurname(),
-                    client.getBirthday(),
-                    client.getGender(),
-                    client.getRegistrationDate(),
-                    client.getAddress().getId());
+            clientRepository.save(clientEntity);
+//            return new ClientResponse(
+//                    client.getId(),
+//                    client.getClientName(),
+//                    client.getClientSurname(),
+//                    client.getBirthday(),
+//                    client.getGender(),
+//                    client.getRegistrationDate(),
+//                    client.getAddress().getId());
+            return clientEntityToClientResponse(clientEntity);
         });
     }
 
@@ -107,15 +121,19 @@ public class ClientService {
             clients = clientPage.getContent();
         }
 
-        return clients.stream()
-                .map(client -> new ClientResponse(
-                        client.getId(),
-                        client.getClientName(),
-                        client.getClientSurname(),
-                        client.getBirthday(),
-                        client.getGender(),
-                        client.getRegistrationDate(),
-                        client.getAddress().getId()))
+//        return clients.stream()
+//                .map(client -> new ClientResponse(
+//                        client.getId(),
+//                        client.getClientName(),
+//                        client.getClientSurname(),
+//                        client.getBirthday(),
+//                        client.getGender(),
+//                        client.getRegistrationDate(),
+//                        client.getAddress().getId()))
+//                .toList();
+        return clients
+                .stream()
+                .map(ClientMapper::clientEntityToClientResponse)
                 .toList();
     }
 

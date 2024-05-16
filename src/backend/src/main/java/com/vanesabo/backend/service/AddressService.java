@@ -4,14 +4,15 @@ import com.vanesabo.backend.model.AddressEntity;
 import com.vanesabo.backend.repository.AddressRepository;
 import com.vanesabo.backend.request.AddressRequest;
 import com.vanesabo.backend.response.AddressResponse;
+import com.vanesabo.backend.utils.AddressMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
+import static com.vanesabo.backend.utils.AddressMapper.addressEntityToAddressResponse;
+import static com.vanesabo.backend.utils.AddressMapper.addressRequestToAddressEntity;
 
 @Service
 public class AddressService {
@@ -41,27 +42,36 @@ public class AddressService {
     public List<AddressResponse> getAllAddreses() {
         List<AddressEntity> addressEntities = addressRepository.findAll();
 
-        return addressEntities.stream().map(address -> new AddressResponse(
-                        address.getId(),
-                        address.getCountry(),
-                        address.getCity(),
-                        address.getStreet()))
+//        return addressEntities.stream().map(address -> new AddressResponse(
+//                        address.getId(),
+//                        address.getCountry(),
+//                        address.getCity(),
+//                        address.getStreet()))
+//                .toList();
+        return addressEntities
+                .stream()
+                .map(AddressMapper::addressEntityToAddressResponse)
                 .toList();
     }
 
-    public AddressResponse addAddress(AddressRequest address) {
-        AddressEntity addressEntity = new AddressEntity(
-                address.country(),
-                address.city(),
-                address.street()
-                );
+    public AddressResponse addAddress(AddressRequest addressRequest) {
+//        AddressEntity addressEntity = new AddressEntity(
+//                addressRequest.country(),
+//                addressRequest.city(),
+//                addressRequest.street()
+//                );
+//        addressRepository.save(addressEntity);
+//
+//        return new AddressResponse(
+//                addressEntity.getId(),
+//                addressEntity.getCountry(),
+//                addressEntity.getCity(),
+//                addressEntity.getStreet());
+
+        AddressEntity addressEntity = addressRequestToAddressEntity(addressRequest);
         addressRepository.save(addressEntity);
 
-        return new AddressResponse(
-                addressEntity.getId(),
-                addressEntity.getCountry(),
-                addressEntity.getCity(),
-                addressEntity.getStreet());
+        return addressEntityToAddressResponse(addressEntity);
     }
 
 }

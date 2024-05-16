@@ -6,6 +6,7 @@ import com.vanesabo.backend.repository.ImagesRepository;
 import com.vanesabo.backend.repository.ProductRepository;
 import com.vanesabo.backend.request.ImagesRequest;
 import com.vanesabo.backend.response.ImagesResponse;
+import com.vanesabo.backend.utils.ImagesMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
+
+import static com.vanesabo.backend.utils.ImagesMapper.imagesEntityToImagesResponse;
 
 @Service
 public class ImagesService {
@@ -39,7 +42,8 @@ public class ImagesService {
         productEntity.setImage(newImage);
         productRepository.save(productEntity);
 
-        return new ImagesResponse(savedImage.getId(), savedImage.getImage());
+//        return new ImagesResponse(savedImage.getId(), savedImage.getImage());
+        return imagesEntityToImagesResponse(savedImage);
     }
 
     //2
@@ -51,7 +55,8 @@ public class ImagesService {
         existingImage.setImage(decodedImage);
         ImagesEntity updatedImage = imagesRepository.save(existingImage);
 
-        return new ImagesResponse(updatedImage.getId(), updatedImage.getImage());
+//        return new ImagesResponse(updatedImage.getId(), updatedImage.getImage());
+        return imagesEntityToImagesResponse(updatedImage);
     }
 
     //3
@@ -65,10 +70,14 @@ public class ImagesService {
     //4
     public List<ImagesResponse> getImagesByProductId(Long productId) {
         List<ImagesEntity> imagesEntity = imagesRepository.findByProductsId(productId);
-        return imagesEntity.stream()
-                .map(image -> new ImagesResponse(
-                        image.getId(),
-                        image.getImage()))
+//        return imagesEntity.stream()
+//                .map(image -> new ImagesResponse(
+//                        image.getId(),
+//                        image.getImage()))
+//                .toList();
+        return imagesEntity
+                .stream()
+                .map(ImagesMapper::imagesEntityToImagesResponse)
                 .toList();
     }
 
@@ -77,7 +86,8 @@ public class ImagesService {
         ImagesEntity imageEntity = imagesRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, IMAGE_NOT_FOUND + id));
 
-        return new ImagesResponse(imageEntity.getId(), imageEntity.getImage());
+//        return new ImagesResponse(imageEntity.getId(), imageEntity.getImage());
+        return imagesEntityToImagesResponse(imageEntity);
     }
 
     public ImagesEntity getImagesEntityById(UUID id) {
