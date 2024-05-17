@@ -21,17 +21,17 @@ public class AddressController {
     @Autowired
     private AddressService addressService;
 
-    //    не мапим это
     @PostMapping
     @Operation(summary = "Add a new address", description = "Adding a new address to the database.")
     public ResponseEntity<AddressResponse> addAddress(@Valid @RequestBody AddressRequest request) {
-        return new ResponseEntity<>(addressService.addAddress(request), HttpStatus.OK);
+//        return new ResponseEntity<>(addressService.addAddress(request), HttpStatus.OK);
+        return ResponseEntity.ok().body(addressService.addAddress(request));
     }
 
     @Operation(summary = "Get all addresses", description = "Getting a list of all addresses from the database.")
     @GetMapping()
     public ResponseEntity<List<AddressResponse>> getAllAddreses() {
-        return new ResponseEntity<>(addressService.getAllAddreses(), HttpStatus.OK);
+//        return new ResponseEntity<>(addressService.getAllAddreses(), HttpStatus.OK);
+        return ResponseEntity.ok().body(addressService.getAllAddreses());
     }
-
 }

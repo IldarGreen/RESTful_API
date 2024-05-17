@@ -27,7 +27,8 @@ public class SupplierController {
     @Operation(summary = "Add a new supplier", description = "Adding a new supplier to the database.")
     public ResponseEntity<SupplierResponse> addNewSupplier(@Valid @RequestBody SupplierRequest request) {
         SupplierResponse newSupplier = supplierService.addNewSupplier(request);
-        return new ResponseEntity<>(newSupplier, HttpStatus.CREATED);
+//        return new ResponseEntity<>(newSupplier, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newSupplier);
     }
 
     //2
@@ -35,10 +36,12 @@ public class SupplierController {
     @Operation(summary = "Update supplier address", description = "Update the address of a specific supplier")
     public ResponseEntity<SupplierResponse> updateSupplierAddress(
             @PathVariable Long id,
-            @RequestBody AddressRequest request) {
+            @Valid @RequestBody AddressRequest request) {
         return supplierService.updateSupplierAddress(id, request)
                 .map(ResponseEntity::ok)
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
     //3
@@ -47,7 +50,6 @@ public class SupplierController {
     @Operation(summary = "Delete supplier by ID", description = "Delete a supplier with a given identifier")
     public ResponseEntity<Void> deleteSupplierById(@PathVariable Long id) {
         supplierService.deleteById(id);
-//        return new ResponseEntity<>(HttpStatus.OK);
         return ResponseEntity.ok().build();
     }
 
@@ -55,21 +57,21 @@ public class SupplierController {
     @GetMapping
     @Operation(summary = "Get list of all suppliers", description = "Retrieves a list of suppliers.")
     public ResponseEntity<List<SupplierResponse>> getAllSuppliers() {
-        List<SupplierResponse> suppliers = supplierService.getAllSuppliers();
-        return ResponseEntity.ok(suppliers);
+//        List<SupplierResponse> suppliers = supplierService.getAllSuppliers();
+        return ResponseEntity.ok(supplierService.getAllSuppliers());
     }
 
-    //5
-//    @GetMapping("/{id}")
-//    @Operation(summary = "Get supplier by ID", description = "Get a supplier by a specific id")
-//    public ResponseEntity<SupplierResponse> getSupplierById(@PathVariable Long id) {
-//        SupplierResponse supplier = supplierService.getSupplierById(id);
-//        return ResponseEntity.ok(supplier);
-//    }
-    @ResponseStatus(HttpStatus.OK)
+////    5
     @GetMapping("/{id}")
     @Operation(summary = "Get supplier by ID", description = "Get a supplier by a specific id")
-    public SupplierResponse getSupplierById(@PathVariable Long id) {
-        return supplierService.getSupplierById(id);
+    public ResponseEntity<SupplierResponse> getSupplierById(@PathVariable Long id) {
+//        SupplierResponse supplier = supplierService.getSupplierById(id);
+        return ResponseEntity.ok(supplierService.getSupplierById(id));
     }
+//    @ResponseStatus(HttpStatus.OK)
+//    @GetMapping("/{id}")
+//    @Operation(summary = "Get supplier by ID", description = "Get a supplier by a specific id")
+//    public SupplierResponse getSupplierById(@PathVariable Long id) {
+//        return supplierService.getSupplierById(id);
+//    }
 }

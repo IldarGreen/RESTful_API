@@ -31,7 +31,7 @@ public class ImagesService {
 
         ProductEntity productEntity = productRepository.findById(productId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Supplier not found with id: " + productId));
+                        "Product not found with id: " + productId));
 
         ImagesEntity newImage = new ImagesEntity(decodedImage, new ArrayList<>() {
             {
@@ -69,6 +69,9 @@ public class ImagesService {
 
     //4
     public List<ImagesResponse> getImagesByProductId(Long productId) {
+        productRepository.findById(productId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product with id: " + productId + " not found"));
+
         List<ImagesEntity> imagesEntity = imagesRepository.findByProductsId(productId);
 //        return imagesEntity.stream()
 //                .map(image -> new ImagesResponse(
