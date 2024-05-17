@@ -5,12 +5,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
-
 @Entity
 @Table(name = "product")
 public class ProductEntity {
     @Id
-//    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;

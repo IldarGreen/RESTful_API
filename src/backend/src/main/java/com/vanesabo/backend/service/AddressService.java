@@ -20,7 +20,6 @@ public class AddressService {
     @Autowired
     private AddressRepository addressRepository;
 
-
     public List<AddressEntity> findAll() {
         return addressRepository.findAll();
     }
@@ -35,43 +34,31 @@ public class AddressService {
 
     public Optional<AddressEntity> getAddressEntityById(Long id) {
         return addressRepository.findById(id);
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-//                "Address not found with id: " + id));
     }
 
-    public List<AddressResponse> getAllAddreses() {
-        List<AddressEntity> addressEntities = addressRepository.findAll();
-
-//        return addressEntities.stream().map(address -> new AddressResponse(
-//                        address.getId(),
-//                        address.getCountry(),
-//                        address.getCity(),
-//                        address.getStreet()))
-//                .toList();
-        return addressEntities
+    public List<AddressResponse> getAllAddresses() {
+        return addressRepository.findAll()
                 .stream()
                 .map(AddressMapper::addressEntityToAddressResponse)
                 .toList();
     }
 
     public AddressResponse addAddress(AddressRequest addressRequest) {
-//        AddressEntity addressEntity = new AddressEntity(
-//                addressRequest.country(),
-//                addressRequest.city(),
-//                addressRequest.street()
-//                );
-//        addressRepository.save(addressEntity);
-//
-//        return new AddressResponse(
-//                addressEntity.getId(),
-//                addressEntity.getCountry(),
-//                addressEntity.getCity(),
-//                addressEntity.getStreet());
-
         AddressEntity addressEntity = addressRequestToAddressEntity(addressRequest);
         addressRepository.save(addressEntity);
 
         return addressEntityToAddressResponse(addressEntity);
+    }
+
+    public Optional<AddressEntity> addressAddPrepare(AddressRequest request, AddressService addressService) {
+        Optional<AddressEntity> addressEntity = addressService.getAddressByAllField(request.country(), request.city(), request.street());
+
+        if (addressEntity.isEmpty()) {
+            Long addressId = addressService.addAddress(request).id();
+            addressEntity = addressService.getAddressEntityById(addressId);
+        }
+
+        return addressEntity;
     }
 
 }

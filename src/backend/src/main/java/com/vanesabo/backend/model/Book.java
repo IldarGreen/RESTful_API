@@ -17,7 +17,6 @@ public class Book {
     private BigDecimal price;
     private LocalDate publishDate;
 
-    // for JPA only, no use
     public Book() {
     }
 

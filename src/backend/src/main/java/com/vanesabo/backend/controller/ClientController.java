@@ -24,50 +24,47 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
-//    @ResponseStatus(HttpStatus.CREATED) // 201
+    //1
     @PostMapping
     @Operation(summary = "Add a new client", description = "Adding a new client to the database.")
     public ResponseEntity<ClientResponse> addClient(@Valid @RequestBody ClientRequest request) {
         ClientResponse newClient = clientService.addClient(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(newClient);
-//        return ResponseEntity.ok().body(newClient);
     }
 
-//    @ResponseStatus(HttpStatus.CREATED) // 201
-//    @PostMapping
-//    @Operation(summary = "Add a new client", description = "Adding a new client to the database.")
-//    public ClientResponse addClient(@Valid @RequestBody ClientRequest request) {
-////        return ResponseEntity.status(HttpStatus.CREATED).body(newClient);
-//        return clientService.addClient(request);
+    //2
+    //    @GetMapping("/{id}/delete")
+//    @Operation(summary = "Delete client by ID", description = "Delete a client with a given identifier")
+//    public ResponseEntity<Void> deleteClientById(@PathVariable Long id) {
+//        clientService.deleteById(id);
+//        return ResponseEntity.ok().build();
 //    }
-
-    @GetMapping("/{id}/delete")
+    //2
+    @DeleteMapping("/{id}")
     @Operation(summary = "Delete client by ID", description = "Delete a client with a given identifier")
-    public ResponseEntity<Void> deleteClientById(@PathVariable Long id) {
+    public void deleteClientById(@PathVariable Long id) {
         clientService.deleteById(id);
-        return ResponseEntity.ok().build();
     }
 
+    //3
     @GetMapping("/search")
     @Operation(summary = "Get clients by name and surname", description = "We are looking for clients by their name and last surname.")
     public ResponseEntity<List<ClientResponse>> getClientsByNameAndSurname(
             @RequestParam String name,
             @RequestParam String surname) {
-//        List<ClientResponse> clients = clientService.getClientsByNameAndSurname(name, surname);
         return ResponseEntity.ok(clientService.getClientsByNameAndSurname(name, surname));
     }
 
-    //4. Получение всех клиентов (В данном запросе необходимо предусмотреть опциональные параметры
-    // пагинации в строке запроса: limit и offset). В случае отсутствия эти параметров возвращать весь список.
+    //4
     @GetMapping
     @Operation(summary = "Get all clients with pagination option", description = "Retrieves a list of clients with pagination option.")
     ResponseEntity<List<ClientResponse>> getAllClientsPaginated(
             @RequestParam(required = false) Integer limit,
             @RequestParam(required = false) Integer offset) {
-//        List<ClientResponse> clients = clientService.getAllClientsPaginated(limit, offset);
         return ResponseEntity.ok(clientService.getAllClientsPaginated(limit, offset));
     }
 
+    //5
     @PatchMapping("/{id}/address")
     @Operation(summary = "Update client's address", description = "Updates the address for the specified client.")
     public ResponseEntity<ClientResponse> updateClientAddress(
@@ -75,7 +72,6 @@ public class ClientController {
             @RequestBody AddressRequest request) {
         return clientService.updateClientAddress(id, request)
                 .map(ResponseEntity::ok)
-//                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
                 .orElse(ResponseEntity.notFound().build());
     }
 

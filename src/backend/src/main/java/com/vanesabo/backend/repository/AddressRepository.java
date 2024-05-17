@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-// Spring Data JPA creates CRUD implementation at runtime automatically.
 public interface AddressRepository extends JpaRepository<AddressEntity, Long> {
     @Query("SELECT a FROM AddressEntity a WHERE a.country = :country AND a.city = :city AND a.street = :street")
     Optional<AddressEntity> getAddressByAllField(@Param("country") String country,

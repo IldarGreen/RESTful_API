@@ -31,7 +31,7 @@ public class ImagesService {
 
         ProductEntity productEntity = productRepository.findById(productId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Product not found with id: " + productId));
+                        "Product with id: " + productId + " not found"));
 
         ImagesEntity newImage = new ImagesEntity(decodedImage, new ArrayList<>() {
             {
@@ -42,7 +42,6 @@ public class ImagesService {
         productEntity.setImage(newImage);
         productRepository.save(productEntity);
 
-//        return new ImagesResponse(savedImage.getId(), savedImage.getImage());
         return imagesEntityToImagesResponse(savedImage);
     }
 
@@ -55,7 +54,6 @@ public class ImagesService {
         existingImage.setImage(decodedImage);
         ImagesEntity updatedImage = imagesRepository.save(existingImage);
 
-//        return new ImagesResponse(updatedImage.getId(), updatedImage.getImage());
         return imagesEntityToImagesResponse(updatedImage);
     }
 
@@ -71,13 +69,8 @@ public class ImagesService {
     public List<ImagesResponse> getImagesByProductId(Long productId) {
         productRepository.findById(productId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product with id: " + productId + " not found"));
-
         List<ImagesEntity> imagesEntity = imagesRepository.findByProductsId(productId);
-//        return imagesEntity.stream()
-//                .map(image -> new ImagesResponse(
-//                        image.getId(),
-//                        image.getImage()))
-//                .toList();
+
         return imagesEntity
                 .stream()
                 .map(ImagesMapper::imagesEntityToImagesResponse)
@@ -89,7 +82,6 @@ public class ImagesService {
         ImagesEntity imageEntity = imagesRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, IMAGE_NOT_FOUND + id));
 
-//        return new ImagesResponse(imageEntity.getId(), imageEntity.getImage());
         return imagesEntityToImagesResponse(imageEntity);
     }
 

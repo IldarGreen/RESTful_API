@@ -5,6 +5,5 @@ public record SupplierResponse(
         Long id,
         String name,
         Long addressId,
-        String phoneNumber
-) {
+        String phoneNumber) {
 }

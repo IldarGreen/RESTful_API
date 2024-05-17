@@ -12,5 +12,5 @@ public record ProductResponse(
         Integer availableStock,
         LocalDate lastUpdateDate,
         Long supplierId,
-        UUID imageId
-) {}
+        UUID imageId) {
+}

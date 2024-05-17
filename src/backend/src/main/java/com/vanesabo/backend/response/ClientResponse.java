@@ -9,5 +9,5 @@ public record ClientResponse(
         LocalDate birthday,
         String gender,
         LocalDate registrationDate,
-        Long addressId
-) {}
+        Long addressId) {
+}

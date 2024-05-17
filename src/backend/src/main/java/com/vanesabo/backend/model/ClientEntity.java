@@ -9,10 +9,8 @@ import java.time.LocalDate;
 @Table(name = "client")
 public class ClientEntity {
     @Id
-//    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-//    @NotBlank///////////////////////////////////////////////////////
     private String clientName;
     private String clientSurname;
     private LocalDate birthday;

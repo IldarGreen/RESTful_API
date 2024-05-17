@@ -32,27 +32,7 @@ public class ClientService {
     public ClientResponse addClient(ClientRequest clientRequest) {
         AddressEntity addressEntity = addressService.getAddressById(clientRequest.addressId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Address not found with id: " + clientRequest.addressId()));
-
-//        ClientEntity client = new ClientEntity(
-//                request.clientName(),
-//                request.clientSurname(),
-//                request.birthday(),
-//                request.gender(),
-//                request.registrationDate(),
-//                addressEntity);
-//        clientRepository.save(clientEntity);
-//
-//        return new ClientResponse(
-//                clientEntity.getId(),
-//                clientEntity.getClientName(),
-//                clientEntity.getClientSurname(),
-//                clientEntity.getBirthday(),
-//                clientEntity.getGender(),
-//                clientEntity.getRegistrationDate(),
-//                clientEntity.getAddress().getId());
-
-
+                        "Address with id: " + clientRequest.addressId() + " not found"));
         ClientEntity clientEntity = clientRequestToClientEntity(clientRequest, addressEntity);
         clientRepository.save(clientEntity);
 
@@ -62,22 +42,12 @@ public class ClientService {
     public void deleteById(Long id) {
         ClientEntity clientEntity = clientRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "Client with id: " + id + "not found"));
+                        "Client with id: " + id + " not found"));
         clientRepository.deleteById(clientEntity.getId());
     }
 
     public List<ClientResponse> getClientsByNameAndSurname(String name, String surname) {
         List<ClientEntity> clientEntity = clientRepository.findByClientNameAndClientSurname(name, surname);
-//        return clientEntity.stream()
-//                .map(client -> new ClientResponse(
-//                        client.getId(),
-//                        client.getClientName(),
-//                        client.getClientSurname(),
-//                        client.getBirthday(),
-//                        client.getGender(),
-//                        client.getRegistrationDate(),
-//                        client.getAddress().getId()))
-//                .toList();
         return clientEntity
                 .stream()
                 .map(ClientMapper::clientEntityToClientResponse)
@@ -85,27 +55,10 @@ public class ClientService {
     }
 
     public Optional<ClientResponse> updateClientAddress(Long clientId, AddressRequest request) {
-        Optional<AddressEntity> addressEntity = addressService.getAddressByAllField(request.country(), request.city(), request.street());
-
-        if (addressEntity.isEmpty()) {
-            Long addressId = addressService.addAddress(request).id();
-            addressEntity = addressService.getAddressEntityById(addressId);
-        }
-
-        Optional<AddressEntity> finalAddressEntity = addressEntity;
+        Optional<AddressEntity> finalAddressEntity = addressService.addressAddPrepare(request, addressService);
         return clientRepository.findById(clientId).map(clientEntity -> {
-            if (finalAddressEntity.isPresent()) {
-                clientEntity.setAddress(finalAddressEntity.get());
-            }
+            finalAddressEntity.ifPresent(clientEntity::setAddress);
             clientRepository.save(clientEntity);
-//            return new ClientResponse(
-//                    client.getId(),
-//                    client.getClientName(),
-//                    client.getClientSurname(),
-//                    client.getBirthday(),
-//                    client.getGender(),
-//                    client.getRegistrationDate(),
-//                    client.getAddress().getId());
             return clientEntityToClientResponse(clientEntity);
         });
     }
@@ -115,22 +68,11 @@ public class ClientService {
         if (limit == null || offset == null) {
             clients = clientRepository.findAll();
         } else {
-
             Pageable pageable = PageRequest.of(offset, limit);
             Page<ClientEntity> clientPage = clientRepository.findAll(pageable);
             clients = clientPage.getContent();
         }
 
-//        return clients.stream()
-//                .map(client -> new ClientResponse(
-//                        client.getId(),
-//                        client.getClientName(),
-//                        client.getClientSurname(),
-//                        client.getBirthday(),
-//                        client.getGender(),
-//                        client.getRegistrationDate(),
-//                        client.getAddress().getId()))
-//                .toList();
         return clients
                 .stream()
                 .map(ClientMapper::clientEntityToClientResponse)
