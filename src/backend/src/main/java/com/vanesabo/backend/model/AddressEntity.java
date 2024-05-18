@@ -3,13 +3,14 @@ package com.vanesabo.backend.model;
 import jakarta.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "address")
 public class AddressEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private UUID id;
     private String country;
     private String city;
     private String street;
@@ -52,11 +53,11 @@ public class AddressEntity {
         return Objects.hash(id, country, city, street);
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

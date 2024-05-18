@@ -4,8 +4,6 @@ import com.vanesabo.backend.model.AddressEntity;
 import com.vanesabo.backend.request.AddressRequest;
 import com.vanesabo.backend.response.AddressResponse;
 
-import java.util.Optional;
-
 public class AddressMapper {
     public static AddressEntity addressRequestToAddressEntity(AddressRequest addressRequest) {
         return new AddressEntity(

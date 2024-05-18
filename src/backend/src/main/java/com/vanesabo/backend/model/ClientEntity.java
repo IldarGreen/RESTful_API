@@ -4,13 +4,14 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "client")
 public class ClientEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private UUID id;
     private String clientName;
     private String clientSurname;
     private LocalDate birthday;
@@ -45,11 +46,11 @@ public class ClientEntity {
                 '}';
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

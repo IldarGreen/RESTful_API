@@ -15,6 +15,6 @@ public record ProductRequest(
         @Positive(message = "Price must be positive") BigDecimal price,
         @Positive(message = "AvailableStock must be positive") Integer availableStock,
         @PastOrPresent(message = "Last update date cannot be later than today") LocalDate lastUpdateDate,
-        @NotNull(message = "Supplier ID cannot be null") Long supplierId,
+        @NotNull(message = "Supplier ID cannot be null") UUID supplierId,
         @NotNull(message = "Image ID cannot be null") UUID imageId) {
 }

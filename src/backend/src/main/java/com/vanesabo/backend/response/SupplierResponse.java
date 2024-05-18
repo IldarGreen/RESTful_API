@@ -1,9 +1,11 @@
 package com.vanesabo.backend.response;
 
 
+import java.util.UUID;
+
 public record SupplierResponse(
-        Long id,
+        UUID id,
         String name,
-        Long addressId,
+        UUID addressId,
         String phoneNumber) {
 }

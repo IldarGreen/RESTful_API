@@ -6,8 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
+import java.util.UUID;
 
-public interface AddressRepository extends JpaRepository<AddressEntity, Long> {
+public interface AddressRepository extends JpaRepository<AddressEntity, UUID> {
     @Query("SELECT a FROM AddressEntity a WHERE a.country = :country AND a.city = :city AND a.street = :street")
     Optional<AddressEntity> getAddressByAllField(@Param("country") String country,
                                                  @Param("city") String city,

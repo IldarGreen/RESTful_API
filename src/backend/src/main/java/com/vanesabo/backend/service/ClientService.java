@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static com.vanesabo.backend.utils.ClientMapper.clientEntityToClientResponse;
 import static com.vanesabo.backend.utils.ClientMapper.clientRequestToClientEntity;
@@ -39,7 +40,7 @@ public class ClientService {
         return clientEntityToClientResponse(clientEntity);
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(UUID id) {
         ClientEntity clientEntity = clientRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Client with id: " + id + " not found"));
@@ -54,7 +55,7 @@ public class ClientService {
                 .toList();
     }
 
-    public Optional<ClientResponse> updateClientAddress(Long clientId, AddressRequest request) {
+    public Optional<ClientResponse> updateClientAddress(UUID clientId, AddressRequest request) {
         Optional<AddressEntity> finalAddressEntity = addressService.addressAddPrepare(request, addressService);
         return clientRepository.findById(clientId).map(clientEntity -> {
             finalAddressEntity.ifPresent(clientEntity::setAddress);
@@ -79,7 +80,7 @@ public class ClientService {
                 .toList();
     }
 
-    public Optional<ClientEntity> findById(Long id) {
+    public Optional<ClientEntity> findById(UUID id) {
         return clientRepository.findById(id);
     }
 }

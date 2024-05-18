@@ -26,7 +26,7 @@ public class ImagesController {
     //1
     @PostMapping(value = "/{productId}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Add new image", description = "Adding a new image to the database")
-    public ResponseEntity<ImagesResponse> addImage(@Valid @RequestBody ImagesRequest request, @PathVariable Long productId) {
+    public ResponseEntity<ImagesResponse> addImage(@Valid @RequestBody ImagesRequest request, @PathVariable UUID productId) {
         ImagesResponse newImage = imagesService.addImagesEntity(request, productId);
         return ResponseEntity.status(HttpStatus.CREATED).body(newImage);
     }
@@ -39,13 +39,6 @@ public class ImagesController {
     }
 
     //3
-//    @GetMapping("/{id}/delete")
-//    @Operation(summary = "Delete image by ID", description = "Delete an image with a given identifier")
-//    ResponseEntity<Void> deleteImageById(@PathVariable UUID id) {
-//        imagesService.deleteImageById(id);
-//        return ResponseEntity.ok().build();
-//    }
-    //3
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete image by ID", description = "Delete an image with a given identifier")
     public void deleteImageById(@PathVariable UUID id) {
@@ -55,7 +48,7 @@ public class ImagesController {
     //4
     @GetMapping("/product/{productId}")
     @Operation(summary = "Get images by product ID", description = "Returns an image for the selected product")
-    public ResponseEntity<List<ImagesResponse>> getImagesByProductId(@PathVariable Long productId) {
+    public ResponseEntity<List<ImagesResponse>> getImagesByProductId(@PathVariable UUID productId) {
         return ResponseEntity.ok().body(imagesService.getImagesByProductId(productId));
     }
 

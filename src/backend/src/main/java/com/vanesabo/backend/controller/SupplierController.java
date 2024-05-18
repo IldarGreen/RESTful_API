@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/suppliers")
@@ -34,7 +35,7 @@ public class SupplierController {
     @PatchMapping("/{id}/address")
     @Operation(summary = "Update supplier address", description = "Update the address of a specific supplier")
     public ResponseEntity<SupplierResponse> updateSupplierAddress(
-            @PathVariable Long id,
+            @PathVariable UUID id,
             @Valid @RequestBody AddressRequest request) {
         return supplierService.updateSupplierAddress(id, request)
                 .map(ResponseEntity::ok)
@@ -42,17 +43,9 @@ public class SupplierController {
     }
 
     //3
-////    @DeleteMapping("/{id}")
-//    @GetMapping("/{id}/delete")
-//    @Operation(summary = "Delete supplier by ID", description = "Delete a supplier with a given identifier")
-//    public ResponseEntity<Void> deleteSupplierById(@PathVariable Long id) {
-//        supplierService.deleteById(id);
-//        return ResponseEntity.ok().build();
-//    }
-    //3
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete supplier by ID", description = "Delete a supplier with a given identifier")
-    public void deleteSupplierById(@PathVariable Long id) {
+    public void deleteSupplierById(@PathVariable UUID id) {
         supplierService.deleteById(id);
     }
 
@@ -66,7 +59,7 @@ public class SupplierController {
     //5
     @GetMapping("/{id}")
     @Operation(summary = "Get supplier by ID", description = "Get a supplier by a specific id")
-    public ResponseEntity<SupplierResponse> getSupplierById(@PathVariable Long id) {
+    public ResponseEntity<SupplierResponse> getSupplierById(@PathVariable UUID id) {
         return ResponseEntity.ok(supplierService.getSupplierById(id));
     }
 

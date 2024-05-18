@@ -10,5 +10,5 @@ import org.springframework.data.repository.query.Param;
 
 public interface ImagesRepository extends JpaRepository<ImagesEntity, UUID> {
     @Query("SELECT i FROM ImagesEntity i JOIN i.products p WHERE p.id = :productId")
-    List<ImagesEntity> findByProductsId(@Param("productId") Long productId);
+    List<ImagesEntity> findByProductsId(@Param("productId") UUID productId);
 }

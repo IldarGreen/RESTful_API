@@ -26,7 +26,7 @@ public class ImagesService {
     private final static String IMAGE_NOT_FOUND = "Image not found";
 
     //1
-    public ImagesResponse addImagesEntity(@Valid ImagesRequest request, Long productId) {
+    public ImagesResponse addImagesEntity(@Valid ImagesRequest request, UUID productId) {
         byte[] decodedImage = Base64.getDecoder().decode(request.image());
 
         ProductEntity productEntity = productRepository.findById(productId)
@@ -66,7 +66,7 @@ public class ImagesService {
     }
 
     //4
-    public List<ImagesResponse> getImagesByProductId(Long productId) {
+    public List<ImagesResponse> getImagesByProductId(UUID productId) {
         productRepository.findById(productId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product with id: " + productId + " not found"));
         List<ImagesEntity> imagesEntity = imagesRepository.findByProductsId(productId);

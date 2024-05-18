@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static com.vanesabo.backend.utils.AddressMapper.addressEntityToAddressResponse;
 import static com.vanesabo.backend.utils.AddressMapper.addressRequestToAddressEntity;
@@ -24,7 +25,7 @@ public class AddressService {
         return addressRepository.findAll();
     }
 
-    public Optional<AddressEntity> getAddressById(Long id) {
+    public Optional<AddressEntity> getAddressById(UUID id) {
         return addressRepository.findById(id);
     }
 
@@ -32,7 +33,7 @@ public class AddressService {
         return addressRepository.getAddressByAllField(country, city, street);
     }
 
-    public Optional<AddressEntity> getAddressEntityById(Long id) {
+    public Optional<AddressEntity> getAddressEntityById(UUID id) {
         return addressRepository.findById(id);
     }
 
@@ -54,7 +55,7 @@ public class AddressService {
         Optional<AddressEntity> addressEntity = addressService.getAddressByAllField(request.country(), request.city(), request.street());
 
         if (addressEntity.isEmpty()) {
-            Long addressId = addressService.addAddress(request).id();
+            UUID addressId = addressService.addAddress(request).id();
             addressEntity = addressService.getAddressEntityById(addressId);
         }
 

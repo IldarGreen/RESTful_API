@@ -11,7 +11,6 @@ import java.util.UUID;
 @Table(name = "images")
 public class ImagesEntity {
     @Id
-//    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     private byte[] image;

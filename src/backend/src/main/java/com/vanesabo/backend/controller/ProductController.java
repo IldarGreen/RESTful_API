@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -32,7 +33,7 @@ public class ProductController {
     //2
     @PatchMapping("/{id}")
     @Operation(summary = "Reduce available stock", description = "Reduce the amount of available inventory for a given product..")
-    public ResponseEntity<ProductResponse> reduceAvailableStock(@PathVariable Long id, @RequestParam Integer amount) {
+    public ResponseEntity<ProductResponse> reduceAvailableStock(@PathVariable UUID id, @RequestParam Integer amount) {
         ProductResponse updatedProduct = productService.reduceAvailableStock(id, amount);
         return ResponseEntity.ok(updatedProduct);
     }
@@ -40,7 +41,7 @@ public class ProductController {
     //3
     @GetMapping("/{id}")
     @Operation(summary = "Get product by ID", description = "Get a product by a specific id")
-    public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) {
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable UUID id) {
         ProductResponse product = productService.getProductById(id);
         return ResponseEntity.ok(product);
     }
@@ -54,15 +55,9 @@ public class ProductController {
     }
 
     //5
-//    @GetMapping("/{id}/delete")
-//    @Operation(summary = "Delete product by ID", description = "Delete a product with a given identifier")
-//    ResponseEntity<Void> deleteProductById(@PathVariable Long id) {
-//        productService.deleteProduct(id);
-//        return ResponseEntity.ok().build();
-//    }
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete product by ID", description = "Delete a product with a given identifier")
-    public void deleteProductById(@PathVariable Long id) {
+    public void deleteProductById(@PathVariable UUID id) {
         productService.deleteProduct(id);
     }
 

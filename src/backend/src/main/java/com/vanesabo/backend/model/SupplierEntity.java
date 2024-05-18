@@ -2,14 +2,14 @@ package com.vanesabo.backend.model;
 
 import jakarta.persistence.*;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "supplier")
 public class SupplierEntity {
     @Id
-//    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private UUID id;
     private String name;
 
     @ManyToOne
@@ -50,11 +50,11 @@ public class SupplierEntity {
                 '}';
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

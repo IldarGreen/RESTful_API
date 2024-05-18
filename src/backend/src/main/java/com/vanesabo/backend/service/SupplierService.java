@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static com.vanesabo.backend.utils.SupplierMapper.productEntityToSupplierResponse;
 import static com.vanesabo.backend.utils.SupplierMapper.productRequestToSupplierEntity;
@@ -37,7 +38,7 @@ public class SupplierService {
     }
 
     //2
-    public Optional<SupplierResponse> updateSupplierAddress(Long supplierId, AddressRequest request) {
+    public Optional<SupplierResponse> updateSupplierAddress(UUID supplierId, AddressRequest request) {
         Optional<AddressEntity> finalAddressEntity = addressService.addressAddPrepare(request, addressService);
         return supplierRepository.findById(supplierId).map(supplierEntity -> {
             finalAddressEntity.ifPresent(supplierEntity::setAddress);
@@ -47,7 +48,7 @@ public class SupplierService {
     }
 
     //3
-    public void deleteById(Long id) {
+    public void deleteById(UUID id) {
         if (!supplierRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                     "Supplier with id: " + id + " not found");
@@ -63,7 +64,7 @@ public class SupplierService {
     }
 
     //5
-    public SupplierResponse getSupplierById(Long id) {
+    public SupplierResponse getSupplierById(UUID id) {
         SupplierEntity supplierEntity = supplierRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Supplier with id: " + id + " not found"));
@@ -71,7 +72,7 @@ public class SupplierService {
         return productEntityToSupplierResponse(supplierEntity);
     }
 
-    public SupplierEntity getSupplierEntityById(Long id) {
+    public SupplierEntity getSupplierEntityById(UUID id) {
         return supplierRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "Supplier with id: " + id + " not found"));

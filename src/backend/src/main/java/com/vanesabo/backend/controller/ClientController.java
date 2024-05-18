@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/clients")
@@ -33,16 +34,9 @@ public class ClientController {
     }
 
     //2
-    //    @GetMapping("/{id}/delete")
-//    @Operation(summary = "Delete client by ID", description = "Delete a client with a given identifier")
-//    public ResponseEntity<Void> deleteClientById(@PathVariable Long id) {
-//        clientService.deleteById(id);
-//        return ResponseEntity.ok().build();
-//    }
-    //2
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete client by ID", description = "Delete a client with a given identifier")
-    public void deleteClientById(@PathVariable Long id) {
+    public void deleteClientById(@PathVariable UUID id) {
         clientService.deleteById(id);
     }
 
@@ -68,7 +62,7 @@ public class ClientController {
     @PatchMapping("/{id}/address")
     @Operation(summary = "Update client's address", description = "Updates the address for the specified client.")
     public ResponseEntity<ClientResponse> updateClientAddress(
-            @PathVariable Long id,
+            @PathVariable UUID id,
             @RequestBody AddressRequest request) {
         return clientService.updateClientAddress(id, request)
                 .map(ResponseEntity::ok)
@@ -77,7 +71,7 @@ public class ClientController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get clients by ID", description = "Get a client by a specific id")
-    public Optional<ClientEntity> findById(@PathVariable("id") Long id) {
+    public Optional<ClientEntity> findById(@PathVariable("id") UUID id) {
         return clientService.findById(id);
     }
 

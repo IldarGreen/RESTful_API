@@ -26,8 +26,6 @@ public class BackendApplication {
     }
 
     @Autowired
-    BookRepository bookRepository;
-    @Autowired
     AddressRepository addressRepository;
     @Autowired
     ClientRepository clientRepository;
@@ -39,15 +37,6 @@ public class BackendApplication {
         return args -> {
 
             System.out.println("Running.....");
-
-            Book b1 = new Book("Book A",
-                    BigDecimal.valueOf(9.99),
-                    LocalDate.of(2023, 8, 31));
-            Book b2 = new Book("Book B",
-                    BigDecimal.valueOf(19.99),
-                    LocalDate.of(2023, 7, 31));
-
-            bookRepository.saveAll(List.of(b1, b2));
 
             AddressEntity a1 = new AddressEntity("Франция", "Леон", "Вьен");
             AddressEntity a2 = new AddressEntity("Россия", "Сакт-Петербург", "Лунная");

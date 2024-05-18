@@ -1,8 +1,10 @@
 package com.vanesabo.backend.response;
 
 
+import java.util.UUID;
+
 public record AddressResponse(
-        Long id,
+        UUID id,
         String country,
         String city,
         String street) {

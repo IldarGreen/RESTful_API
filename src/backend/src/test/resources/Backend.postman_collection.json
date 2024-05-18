@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "da38c000-42d1-4f83-b45a-27fc8893415b",
+		"_postman_id": "3058ac72-e969-448b-94dc-3eeacb04fb36",
 		"name": "Backend",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "32960552"
@@ -46,36 +46,16 @@
 					"response": []
 				},
 				{
-					"name": "deleteProductById",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "http://localhost:8080/api/v1/products/2/delete"
-					},
-					"response": []
-				},
-				{
 					"name": "reduceAvailableStock",
 					"request": {
 						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "name",
-									"value": "Кэлен",
-									"type": "text"
-								},
-								{
-									"key": "surname",
-									"value": "Амнелл",
-									"type": "text"
-								}
-							]
+							"formdata": []
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/products/1?amount=2",
+							"raw": "http://localhost:8080/api/v1/products/1?amount=5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -90,10 +70,19 @@
 							"query": [
 								{
 									"key": "amount",
-									"value": "2"
+									"value": "5"
 								}
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProductById(TRU_DELETE)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/products/e9136358-a4bd-41e7-86e1-212e6715f8b1"
 					},
 					"response": []
 				}
@@ -136,7 +125,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"clientName\": \"Кэлен111\",\n    \"clientSurname\": \"Амнелл222\",\n    \"birthday\": \"1000-04-05\",\n    \"gender\": \"M\",\n    \"registrationDate\": \"2014-05-06\",\n    \"addressId\": 1\n}\n\n// {\n//     \"clientName\": \"Кэлен111\",\n//     \"clientSurname\": \"Амнелл222\",\n//     \"birthday\": \"1000-04-05\",\n//     \"gender\": \"F\",\n//     \"registrationDate\": \"2014-05-06\",\n//     \"addressId\": 1\n// }",
+							"raw": "{\n    \"clientName\": \"Кэлен111\",\n    \"clientSurname\": \"Амнелл222\",\n    \"birthday\": \"1000-04-05\",\n    \"gender\": \"F\",\n    \"registrationDate\": \"2014-05-06\",\n    \"addressId\": \"6ba932d6-bf40-4db4-ac0f-26186b554aac\"\n}\n\n// {\n//     \"clientName\": \"Кэлен111\",\n//     \"clientSurname\": \"Амнелл222\",\n//     \"birthday\": \"1000-04-05\",\n//     \"gender\": \"F\",\n//     \"registrationDate\": \"2014-05-06\",\n//     \"addressId\": \"6ba932d6-bf40-4db4-ac0f-26186b554aac\"\n// }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -193,11 +182,11 @@
 					"response": []
 				},
 				{
-					"name": "deleteClientById",
+					"name": "deleteClientById(TRU_DELETE)",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
-						"url": "http://localhost:8080/api/v1/clients/3/delete"
+						"url": "http://localhost:8080/api/v1/clients/1"
 					},
 					"response": []
 				}
@@ -243,15 +232,6 @@
 					"response": []
 				},
 				{
-					"name": "deleteSupplierById",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "http://localhost:8080/api/v1/suppliers/5/delete"
-					},
-					"response": []
-				},
-				{
 					"name": "updateSupplierAddress",
 					"request": {
 						"method": "PATCH",
@@ -266,6 +246,15 @@
 							}
 						},
 						"url": "http://localhost:8080/api/v1/suppliers/1/address"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSupplierById(TRU_DELETE)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/suppliers/2"
 					},
 					"response": []
 				}
@@ -320,7 +309,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/api/v1/images/product/3"
+						"url": "http://localhost:8080/api/v1/images/product/1"
 					},
 					"response": []
 				},
@@ -343,11 +332,11 @@
 					"response": []
 				},
 				{
-					"name": "getImageById",
+					"name": "deleteImageById(TRU_DELETE)",
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
-						"url": "http://localhost:8080/api/v1/images/b8540fdc-3871-4cfe-86bb-a995d929d056"
+						"url": "http://localhost:8080/api/v1/images/6e0d7252-5cf9-4cce-b287-71f9c45d0403"
 					},
 					"response": []
 				}
