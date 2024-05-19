@@ -1,0 +1,346 @@
+{
+	"info": {
+		"_postman_id": "3058ac72-e969-448b-94dc-3eeacb04fb36",
+		"name": "Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32960552"
+	},
+	"item": [
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "addProduct",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Лен на раме\",\n    \"category\": \"Холст\",\n    \"price\": 300.00,\n    \"availableStock\": 40,\n    \"lastUpdateDate\": \"2024-05-10\",\n    \"supplierId\": 2,\n    // Заменить на существующий UUID для iamgeId\n    \"imageId\": \"610d0af4-2ee4-4a12-93e1-a294855b0abc\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/products"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllProducts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/products"
+					},
+					"response": []
+				},
+				{
+					"name": "getProductById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/products/2"
+					},
+					"response": []
+				},
+				{
+					"name": "reduceAvailableStock",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/products/1?amount=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"1"
+							],
+							"query": [
+								{
+									"key": "amount",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProductById(TRU_DELETE)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/products/e9136358-a4bd-41e7-86e1-212e6715f8b1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "getClientsByNameAndSurname",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Кэлен",
+									"type": "text"
+								},
+								{
+									"key": "surname",
+									"value": "Амнелл",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:8080/api/v1/clients/search"
+					},
+					"response": []
+				},
+				{
+					"name": "addClient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"clientName\": \"Кэлен111\",\n    \"clientSurname\": \"Амнелл222\",\n    \"birthday\": \"1000-04-05\",\n    \"gender\": \"F\",\n    \"registrationDate\": \"2014-05-06\",\n    \"addressId\": \"6ba932d6-bf40-4db4-ac0f-26186b554aac\"\n}\n\n// {\n//     \"clientName\": \"Кэлен111\",\n//     \"clientSurname\": \"Амнелл222\",\n//     \"birthday\": \"1000-04-05\",\n//     \"gender\": \"F\",\n//     \"registrationDate\": \"2014-05-06\",\n//     \"addressId\": \"6ba932d6-bf40-4db4-ac0f-26186b554aac\"\n// }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/clients"
+					},
+					"response": []
+				},
+				{
+					"name": "updateClientAddress",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"country\": \"Тайланд\",\n    \"city\": \"Бангкок\",\n    \"street\": \"улица\"\n}\n\n// {\n//     \"country\": \"Франция\",\n//     \"city\": \"Леон\",\n//     \"street\": \"Вьен\"\n// }\n\n// {\n//     \"country\": \"Россия\",\n//     \"city\": \"Сакт-Петербург\",\n//     \"street\": \"Лунная\"\n// }\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/clients/1/address"
+					},
+					"response": []
+				},
+				{
+					"name": "getAllClientsPaginated",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "offset",
+									"value": "0",
+									"type": "text"
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": "http://localhost:8080/api/v1/clients"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteClientById(TRU_DELETE)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/clients/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Suppliers",
+			"item": [
+				{
+					"name": "getAllSuppliers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/suppliers"
+					},
+					"response": []
+				},
+				{
+					"name": "addNewSupplier",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Александра Фролова\",\n    \"addressId\": 2,\n    \"phoneNumber\": \"+79686571111\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/suppliers"
+					},
+					"response": []
+				},
+				{
+					"name": "getSupplierById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/suppliers/2"
+					},
+					"response": []
+				},
+				{
+					"name": "updateSupplierAddress",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"country\": \"Россия\",\n    \"city\": \"Липецк\",\n    \"street\": \"Первый переулок\"\n}\n\n// {\n//     \"country\": \"Россия\",\n//     \"city\": \"Сакт-Петербург\",\n//     \"street\": \"Лунная\"\n// }\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/suppliers/1/address"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSupplierById(TRU_DELETE)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/suppliers/2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Addresses",
+			"item": [
+				{
+					"name": "getAllAddreses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/addresses"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Images",
+			"item": [
+				{
+					"name": "addImage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    // \"image\": \"4D/QIOo6aRCi2AgAKzAwnQ==\"\n    \"image\": \"kD/QIOo6aRCi2AgAKzAxnQ==\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/images/1"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteImageById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/images/58a324b7-0dd1-4121-a139-2e9230eeff24/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "getImagesByProductId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/images/product/1"
+					},
+					"response": []
+				},
+				{
+					"name": "updateImageById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    // \"image\": \"4D/QIOo6aRCi2AgAKzAwnQ==\"\n    \"image\": \"kD/QIOo6aRCi2AgAKzAxnQ==\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/images/45b37627-b301-4f85-9395-e212d2b5f689"
+					},
+					"response": []
+				},
+				{
+					"name": "deleteImageById(TRU_DELETE)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/images/6e0d7252-5cf9-4cce-b287-71f9c45d0403"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
