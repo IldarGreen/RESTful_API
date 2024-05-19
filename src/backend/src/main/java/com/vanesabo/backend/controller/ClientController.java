@@ -69,10 +69,4 @@ public class ClientController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Get clients by ID", description = "Get a client by a specific id")
-    public Optional<ClientEntity> findById(@PathVariable("id") UUID id) {
-        return clientService.findById(id);
-    }
-
 }
