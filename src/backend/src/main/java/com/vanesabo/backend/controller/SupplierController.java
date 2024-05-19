@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/suppliers")
+@RequestMapping("/suppliers")
 @Tag(name = "Supplier", description = "Operations related to supplier")
 public class SupplierController {
 

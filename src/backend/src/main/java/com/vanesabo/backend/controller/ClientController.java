@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/clients")
+@RequestMapping("/clients")
 @Tag(name = "Client", description = "Operations related to client")
 public class ClientController {
 
